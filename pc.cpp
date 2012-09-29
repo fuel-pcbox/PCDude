@@ -3217,9 +3217,9 @@ namespace CPU
 
 int main()
 {
-	FILE* bios = fopen("testsuite/add.com","rb");
+	FILE* bios = fopen("pcxt.rom","rb");
 	u8* RAM_ptr = RAM16::RAM;
-	fread(RAM_ptr+0xffff0,1,0x7,bios);
+	fread(RAM_ptr+0xfe000,1,0x2000,bios);
 	
 	FILE* mda_rom = fopen("5788005.u33","rb");
 	u8* MDA_ROM_ptr = MDA::ROM;
