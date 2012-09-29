@@ -596,6 +596,11 @@ namespace IO_XT
                         if(MDA::crtc_index == 0) MDA::horz_total = value;
                         if(MDA::crtc_index == 1) MDA::horz_disp = value;
                         if(MDA::crtc_index == 2) MDA::horz_sync_pos = value;
+                        if(MDA::crtc_index == 3) MDA::horz_sync_width = value;
+                        if(MDA::crtc_index == 4) MDA::vert_total = value;
+                        if(MDA::crtc_index == 5) MDA::vert_total_adjust = value;
+                        if(MDA::crtc_index == 6) MDA::vert_disp = value;
+                        if(MDA::crtc_index == 9) MDA::maximum_scanline = value;
                 }
                 if(addr == 0x03B8)
                 {
@@ -1098,6 +1103,20 @@ namespace CPU
 				                ip+=1;
 				                break;
 				        }
+				        case 0x27:
+				        {
+				                printf("DAA\n");
+				                if(((al & 0x0F)>9) || (flags & 0x10))
+				                {
+				                        al+=6;
+				                }
+				                if((al > 0x9F) || (flags & 1))
+				                {
+				                        al-=0x60;
+				                }
+				                ip+=1;
+				                break;
+				        }
 				        case 0x2A:
 				        {
 				                u8 modrm = RAM16::RAM[addr+1];
@@ -1241,6 +1260,39 @@ namespace CPU
 				                ip+=1;
 				                break;
 				        }
+				        case 0x30:
+				        {
+				                u8 modrm = RAM16::RAM[addr+1];
+				                switch(modrm)
+				                {
+				                        case 0xC0:
+				                        {
+				                                printf("XOR AL,AL\n");
+				                                al = 0;
+				                                flags &= 0xFFBA;
+				                                flags |= 0x0044;
+				                                break;
+				                        }
+				                        case 0xC4:
+				                        {
+				                                printf("XOR AH,AL\n");
+				                                ah ^= al;
+				                                if(al==0) flags |= 0x0040;
+				                                else flags &= 0xFFBF;
+				                                break;
+				                        }
+				                        case 0xE4:
+				                        {
+				                                printf("XOR AH,AH\n");
+				                                ah = 0;
+				                                flags &= 0xFFBA;
+				                                flags |= 0x0044;
+				                                break;
+				                        }
+				                }
+				                ip+=2;
+				                break;
+				        }
 				        case 0x32:
 				        {
 				                u8 modrm = RAM16::RAM[addr+1];
@@ -1293,6 +1345,14 @@ namespace CPU
 							        ax ^= di;
 							        if(ax==0) flags |= 0x0040;
 							        else flags &= 0xFFBF;
+							        break;
+							}
+							case 0xC9:
+							{
+							        printf("XOR CX,CX\n");
+							        cx = 0;
+							        flags &= 0xFFBA;
+							        flags |= 0x0044;
 							        break;
 							}
 							case 0xDB:
@@ -1758,6 +1818,16 @@ namespace CPU
 					                                        else flags &= 0xFFFE;
 					                                        break;
 					                                }
+					                                case 6:
+					                                {
+					                                        printf("CMP DH,%02x\n",RAM16::RAM[addr+2]);
+					                                        u8 tmp = dh - RAM16::RAM[addr+2];
+					                                        if(tmp==0) flags |= 0x0040;
+					                                        else flags &= 0xFFBF;
+					                                        if(tmp>dh) flags |= 0x0001;
+					                                        else flags &= 0xFFFE;
+					                                        break;
+					                                }
 					                                case 7:
 					                                {
 					                                        printf("CMP BH,%02x\n",RAM16::RAM[addr+2]);
@@ -1810,21 +1880,14 @@ namespace CPU
 					                                        }
 					                                        break;
 					                                }
-					                                case 7:
+					                                case 2:
 					                                {
-					                                        switch((modrm>>6)&3)
-					                                        {
-					                                                case 3:
-					                                                {
-					                                                        printf("CMP DX,%04x\n",(RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
-					                                                        u16 tmp = dx - (RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2];
-					                                                        if(tmp > dx) flags |= 0x0800;
-					                                                        else flags &= 0xF7FF;
-					                                                        if(tmp >= 0x8000) flags |= 0x0080;
-					                                                        else flags &= 0xFF7F;
-					                                                        break;
-					                                                }
-					                                        }
+                                                                                printf("CMP DX,%04x\n",(RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
+					                                        u16 tmp = dx - (RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2];
+					                                        if(tmp > dx) flags |= 0x0800;
+				                                                else flags &= 0xF7FF;
+			                                                        if(tmp >= 0x8000) flags |= 0x0080;
+			                                                        else flags &= 0xFF7F;
 					                                        break;
 					                                }
 					                        }
@@ -1901,6 +1964,14 @@ namespace CPU
 					                        RAM16::RAM[(ds<<4)+di+1] = ah;
 					                        break;
 					                }
+					                case 0x0E:
+					                {
+					                        printf("MOV WORD PTR DS:%04x,CX\n",(RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
+					                        RAM16::RAM[(ds<<4)+((RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2])] = cl;
+					                        RAM16::RAM[(ds<<4)+((RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2])+1] = ch;
+					                        ip+=2;
+					                        break;
+					                }
 					                case 0x16:
 					                {
 					                        printf("MOV WORD PTR DS:%04x,DX\n",(RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
@@ -1974,6 +2045,12 @@ namespace CPU
 					                        al = bl;
 					                        break;
 					                }
+					                case 0xC5:
+					                {
+					                        printf("MOV AL,CH\n");
+					                        al = ch;
+					                        break;
+					                }
 					                case 0xD8:
 					                {
 					                        printf("MOV BL,AL\n");
@@ -2045,6 +2122,13 @@ namespace CPU
 						                si = RAM16::RAM[(ds<<4)+((RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2])];
 						                ip+=2;
 						                break;  
+						        }
+						        case 0x4E:
+						        {
+						                printf("MOV CX,WORD PTR SS:[BP+%02x]\n",RAM16::RAM[addr+2]);
+						                cx = (RAM16::RAM[(ss<<4)+bp+(s8)(RAM16::RAM[addr+2])+1]<<8)|RAM16::RAM[(ds<<4)+bp+(s8)(RAM16::RAM[addr+2])];
+						                ip+=1;
+						                break;
 						        }
 						        case 0x5E:
 						        {
@@ -2428,6 +2512,13 @@ namespace CPU
 					{
 					        printf("MOV AH,%02x\n",RAM16::RAM[addr+1]);
 					        ah = RAM16::RAM[addr+1];
+					        ip+=2;
+					        break;
+					}
+					case 0xB5:
+					{
+					        printf("MOV CH,%02x\n",RAM16::RAM[addr+1]);
+					        ch = RAM16::RAM[addr+1];
 					        ip+=2;
 					        break;
 					}
@@ -3047,6 +3138,8 @@ namespace CPU
 					                                {
 					                                        printf("INC AL\n");
 					                                        al++;
+					                                        if(al==0) flags |= 0x0040;
+					                                        else flags &= 0xFFBF;
 					                                        break;
 					                                }
 					                                case 2:
@@ -3124,9 +3217,9 @@ namespace CPU
 
 int main()
 {
-	FILE* bios = fopen("pcxt.rom","rb");
+	FILE* bios = fopen("testsuite/add.com","rb");
 	u8* RAM_ptr = RAM16::RAM;
-	fread(RAM_ptr+0xfe000,1,0x2000,bios);
+	fread(RAM_ptr+0xffff0,1,0x7,bios);
 	
 	FILE* mda_rom = fopen("5788005.u33","rb");
 	u8* MDA_ROM_ptr = MDA::ROM;
