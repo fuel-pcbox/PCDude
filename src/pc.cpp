@@ -31,7 +31,7 @@ int main(int argc,char** argv, char** envv)
 
 	fclose(bios);
 	fclose(mda_rom);
-
+	
 	CPU::InitCPU(0);
 	Video.Init();
 

@@ -21,12 +21,12 @@ public:
 class Video_t
 {
 public:
-	Video_t() : win(sf::RenderWindow()) {}
+	Video_t() {}
 	virtual ~Video_t()
 	{
 	}
 
-	sf::RenderWindow &win;
+	sf::RenderWindow win;
 	sf::Event ev;
 	std::function<std::tuple<int,int>()> gfxCardGetDisplaySize; // returns (w,h) of the graphics display.
 	std::function<void(sf::RenderWindow&,int,int)> gfxCardRender; // void X(window, x offset, y offset)

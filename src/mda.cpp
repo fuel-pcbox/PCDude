@@ -14,17 +14,16 @@ void tick()
 		u8 chr = RAM16::RAM[(0xb0000)+(i<<1)]; // Character number
 		u8 attr = RAM16::RAM[(0xb0000)+(i<<1)+1]; // Attribute part
 		sf::Color fg,bg; // Render color
-		bool underline;
-		bool high_intensity;
-		if(attr == 0 || attr == 8 || attr == 0x80 || attr == 0x88)
+		bool 
+		if(attr == 0 || attr == 8 || attr == 0x80 || attr == 0x88) // Invisible
 		{
-			fg=bg = sf::Color::Black; //Black on black
+			fg=bg = sf::Color::Black;
 		}
-		if(attr == 0x70 || attr == 0xF0)
+		else if(attr == 0x70 || attr == 0xF0) // Black on green
 		{
-			pal = sf::Color::Black; //Black on green
+			bg = sf::Color::Black;
 		}
-		if(attr == 0x78 || attr == 0xF8)
+		else if(attr == 0x78 || attr == 0xF8) // Dark green on green
 		{
 			pal = 0x12; //Dark green on green.
 		}
