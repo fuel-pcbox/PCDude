@@ -9,7 +9,7 @@ u8 irq_number;
 
 namespace MDA
 {
-u8 ROM[0x2000];
+u8 ROM[ROM_SIZE];
 
 u8 textcols;
 u8 textmode;
@@ -114,7 +114,7 @@ u8 nmi_enabled;
 
 namespace RAM16
 {
-u8 RAM[0x100000];
+u8 RAM[RAM_SIZE];
 };
 
 namespace CPU

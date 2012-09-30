@@ -12,7 +12,8 @@ extern u8 irq_number;
 
 namespace MDA
 {
-extern u8 ROM[0x2000];
+constexpr std::size_t ROM_SIZE = 0x2000U;
+extern u8 ROM[ROM_SIZE];
 
 extern u8 textcols;
 extern u8 textmode;
@@ -123,7 +124,8 @@ void wb(u16 addr, u8 value);
 
 namespace RAM16
 {
-extern u8 RAM[0x100000];
+constexpr std::size_t RAM_SIZE = 0x100000U;
+extern u8 RAM[RAM_SIZE];
 };
 
 namespace CPU
