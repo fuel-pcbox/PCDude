@@ -34,7 +34,6 @@ int main(int argc,char** argv, char** envv)
 
 	CPU::InitCPU(0);
 	Video.Init();
-	Video.CreateScreen(720,350);
 
 	for(;;)
 	{
@@ -46,15 +45,13 @@ int main(int argc,char** argv, char** envv)
 				return 1;
 			}
 		}
-#ifdef VIDEO
 		while(Video.PollEvent())
 		{
-			if(Video.ev->type() == "QUIT")
+			if(Video.ev.type==sf::Event::Closed)
 			{
 				return 2;
 			}
 		}
-#endif
 		Video.RefreshScreen();
 		PIT::tick();
 	}

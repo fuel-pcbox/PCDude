@@ -7,42 +7,6 @@
 #endif
 
 #include "includes.h"
-#ifdef VIDEO
-#include <SDL/SDL.h>
-#endif
-#include <tr1/memory>
-
-using std::tr1::shared_ptr;
-
-#ifdef VIDEO
-typedef SDL_Surface* Surface;
-typedef SDL_Event Event;
-#else
-typedef void* Surface;
-typedef u8 Event;
-#endif
-
-class vEvent
-{
-public:
-	vEvent() {}
-	virtual ~vEvent() {}
-	virtual std::string type() const
-	{
-		return "NONE";
-	}
-};
-
-#define MAKE_VEVENT( NAME )  public:  \
-	vev ## NAME (){} \
-	virtual ~vev ## NAME (){} \
-	virtual std::string type() const {return #NAME ;}
-
-
-class vevQuit : public vEvent
-{
-	MAKE_VEVENT(Quit)
-};
 
 class VideoException : public std::exception
 {
@@ -57,28 +21,19 @@ public:
 class Video_t
 {
 public:
-	Video_t() : screen(nullptr) {}
+	Video_t() : win(sf::RenderWindow()) {}
 	virtual ~Video_t()
 	{
-		Quit();
 	}
 
-	inline void SDLAssert(int a,std::string message)
-	{
-		if(a!=0)
-		{
-			throw new VideoException(message);
-		}
-	}
+	sf::RenderWindow &win;
+	sf::Event ev;
+	std::function<std::tuple<int,int>()> gfxCardGetDisplaySize; // returns (w,h) of the graphics display.
+	std::function<void(sf::RenderWindow&,int,int)> gfxCardRender; // void X(window, x offset, y offset)
 
-	Surface screen;
-	Event e;
-	shared_ptr<vEvent> ev;
 	void Init();
-	void CreateScreen(int w, int h);
 	bool PollEvent();
 	void RefreshScreen();
-	void Quit();
 
 
 };
