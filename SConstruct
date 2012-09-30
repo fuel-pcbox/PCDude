@@ -5,6 +5,9 @@ env.ParseConfig('sdl-config --cflags')
 env.ParseConfig('sdl-config --libs')
 
 SRCS = Split("""
+build/apidefs.cpp
+build/cputick.cpp
+build/video.cpp
 build/pc.cpp
 """)
 
