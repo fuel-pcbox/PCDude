@@ -5,6 +5,10 @@ from os import *
 VariantDir('build', 'src', duplicate=0)
 env = Environment()
 
+AddOption('--no-video',
+                  dest='no-video',action="store_false",
+                  help='disables video subsystem')
+
 env.ParseConfig('sdl-config --cflags')
 env.ParseConfig('sdl-config --libs')
 
@@ -15,10 +19,10 @@ build/video.cpp
 build/pc.cpp
 """)
 
-CMDOPTS = [,]
+CMDOPTS = []
 
 if not GetOption('no-video'):
-	CMDOPTS += '-DVIDEO'
+	CMDOPTS += ["-DVIDEO"]
 
 env.Program(
 target = 'pc',
