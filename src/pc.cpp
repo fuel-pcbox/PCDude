@@ -3,7 +3,7 @@
 #include "video.h"
 #include "api.h"
 
-int main()
+int main(int argc,char** argv, char** envv)
 {
 	FILE* bios = fopen("pcxt.rom","rb");
 	u8* RAM_ptr = RAM16::RAM;
@@ -31,10 +31,13 @@ int main()
 			}
 		}
 #ifdef VIDEO
-		while(Video.PollEvent()) if(Video.e.type == SDL_QUIT)
+		while(Video.PollEvent())
+		{
+			if(Video.ev->type() == "QUIT")
 			{
 				return 2;
 			}
+		}
 #endif
 		Video.RefreshScreen();
 		PIT::tick();

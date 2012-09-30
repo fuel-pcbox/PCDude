@@ -10,6 +10,9 @@
 #ifdef VIDEO
 #include <SDL/SDL.h>
 #endif
+#include <tr1/memory>
+
+using std::tr1::shared_ptr;
 
 #ifdef VIDEO
 typedef SDL_Surface* Surface;
@@ -18,6 +21,28 @@ typedef SDL_Event Event;
 typedef void* Surface;
 typedef u8 Event;
 #endif
+
+class vEvent
+{
+public:
+	vEvent() {}
+	virtual ~vEvent() {}
+	virtual std::string type() const
+	{
+		return "NONE";
+	}
+};
+
+#define MAKE_VEVENT( NAME )  public:  \
+	vev ## NAME (){} \
+	virtual ~vev ## NAME (){} \
+	virtual std::string type() const {return #NAME ;}
+
+
+class vevQuit : public vEvent
+{
+	MAKE_VEVENT(Quit)
+};
 
 class VideoException : public std::exception
 {
@@ -48,6 +73,7 @@ public:
 
 	Surface screen;
 	Event e;
+	shared_ptr<vEvent> ev;
 	void Init();
 	void CreateScreen(int w, int h);
 	bool PollEvent();

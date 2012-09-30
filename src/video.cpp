@@ -34,7 +34,12 @@ void Video_t::RefreshScreen()
 bool Video_t::PollEvent()
 {
 #ifdef VIDEO
-	return SDL_PollEvent(&e);
+	bool b = SDL_PollEvent(&e);
+	if(e.type == SDL_QUIT)
+	{
+		ev.reset( new vevQuit() );
+	}
+	return b;
 #endif
 }
 
