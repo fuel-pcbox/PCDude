@@ -9,6 +9,8 @@ void Video_t::Init()
 
 void Video_t::RefreshScreen()
 {
+	win.clear();
+	gfxCardRender(win,24,72);
 	win.display();
 }
 

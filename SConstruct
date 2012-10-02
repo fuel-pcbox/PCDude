@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from os import *
 VariantDir('build', 'src', duplicate=0)
 env = Environment()
@@ -9,9 +10,9 @@ SRCS = Split("""
 build/apidefs.cpp
 build/cputick.cpp
 build/video.cpp
-
+build/mda.cpp
 build/pc.cpp
-""")  # build/mda.cpp
+""") 
 
 CMDOPTS = []
 
