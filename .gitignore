@@ -5,3 +5,5 @@ build
 *.exe
 *.exec
 .s*
+*.rom
+*.u33

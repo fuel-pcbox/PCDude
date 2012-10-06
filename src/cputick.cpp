@@ -2490,7 +2490,7 @@ int CPU::tick()
 			}
 			default:
 			{
-				printf("Unknown opcode %02x!\n",op);
+				printf("Unknown opcode %02x [addr=%02x = %d]!\n",op,addr,addr);
 				return 1;
 				break;
 			}
