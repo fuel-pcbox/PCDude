@@ -1953,6 +1953,26 @@ int CPU::tick()
 				sp+=2;
 				break;
 			}
+			case 0xCC:
+			{
+				printf("INT 3\n");
+				u8 tmp1 = 3 ;
+				//dumpivt();
+				sp-=2;
+				RAM16::RAM[(ss<<4)+sp] = flags & 0xFF;
+				RAM16::RAM[(ss<<4)+sp+1] = flags >> 8;
+				flags &= 0xFCFF;
+				sp-=2;
+				RAM16::RAM[(ss<<4)+sp] = cs & 0xFF;
+				RAM16::RAM[(ss<<4)+sp+1] = cs >> 8;
+				sp-=2;
+				RAM16::RAM[(ss<<4)+sp] = (ip+2) & 0xFF;
+				RAM16::RAM[(ss<<4)+sp+1] = (ip+2) >> 8;
+				int tmp = addr;
+				cs = (RAM16::RAM[(tmp1<<2)+2]<<8)|RAM16::RAM[(tmp1<<2)+3];
+				ip = (RAM16::RAM[(tmp1<<2)+1]<<8)|RAM16::RAM[(tmp1<<2)];
+				break;
+			}
 			case 0xCD:
 			{
 				printf("INT %02x\n",RAM16::RAM[addr+1]);
@@ -1968,7 +1988,6 @@ int CPU::tick()
 				sp-=2;
 				RAM16::RAM[(ss<<4)+sp] = (ip+2) & 0xFF;
 				RAM16::RAM[(ss<<4)+sp+1] = (ip+2) >> 8;
-				int tmp = addr;
 				cs = (RAM16::RAM[(tmp1<<2)+2]<<8)|RAM16::RAM[(tmp1<<2)+3];
 				ip = (RAM16::RAM[(tmp1<<2)+1]<<8)|RAM16::RAM[(tmp1<<2)];
 				break;
