@@ -4,6 +4,13 @@
 
 #include "includes.h"
 
+namespace EMULATOR
+{
+extern Jzon::Object settings;
+extern std::string emu_path;
+extern std::string emu_file;
+}
+
 namespace CPU_IRQ
 {
 extern bool irq;
@@ -180,6 +187,9 @@ void inc_addr();
 
 int tick();
 };
+
+
+#include "videocards.h"
 
 #define addr ((cs<<4)+ip)
 

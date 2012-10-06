@@ -12,6 +12,7 @@
 #include <tr1/memory>
 #include <tr1/functional>
 #include <tr1/tuple>
+#include <Jzon.h>
 
 // #include <unistd.h>
 

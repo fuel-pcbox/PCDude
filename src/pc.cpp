@@ -3,31 +3,43 @@
 #include "video.h"
 #include "api.h"
 
+namespace EMULATOR
+{
+Jzon::Object settings;
+std::string emu_path;
+std::string emu_file;
+}
+
+using namespace EMULATOR;
+
 int main(int argc,char** argv, char** envv)
 {
-	std::string biosfn="pcxt.rom",mdafn="5788005.u33";
-	if(argc==1)
+	std::string emup;
+	std::function<void ()> ureg;
+	if(argc<=2)
 	{
-		printf("Defaulting BIOS to pcxt.rom and MDA ROM to 5788005.u33\nIf you want to change, then relaunch with: %s [BIOS] [MDA ROM]",argv[0]);
-	}
-	else if(argc==2)
-	{
-		biosfn = argv[1];
-		printf("Loading BIOS from %s, defaulting MDA ROM to 5788005.u33\nIf you want to change, then relaunch with: %s %s [MDA ROM]",argv[1],argv[0],argv[1]);
+		printf("Usage: %s [EMULATION DIRECTORY] [JSON FILE]",argv[0]);
+		return 1;
 	}
 	else
 	{
-		biosfn = argv[1];
-		mdafn  = argv[2];
-		printf("Loading BIOS from %s, MDA ROM from %s.",argv[1],argv[2]);
+		emu_path = argv[1];
+		emu_file = argv[2];
+		emup = emu_path+"/"+emu_file;
+		printf("Loading emulation description from: %s.",emup.c_str());
 	}
-	FILE* bios = fopen(biosfn.c_str(),"rb");
+	Jzon::FileReader::ReadFile(emup, settings);
+
+	FILE* bios = fopen( settings.Get("bios").ToString().c_str(),"rb");
 	u8* RAM_ptr = RAM16::RAM;
 	fread(RAM_ptr+0xfe000,1,0x2000,bios);
 
-	FILE* mda_rom = fopen(mdafn.c_str(),"rb");
-	u8* MDA_ROM_ptr = MDA::ROM;
-	fread(MDA_ROM_ptr,1,0x2000,mda_rom);
+	std::string gfxcard=settings.Get("graphics").Get("card").ToString();
+	if(gfxcard=="mda")
+	{
+		mda::Register();
+		ureg = &mda::Unregister();
+	}
 
 	fclose(bios);
 	fclose(mda_rom);
@@ -56,3 +68,4 @@ int main(int argc,char** argv, char** envv)
 		PIT::tick();
 	}
 }
+

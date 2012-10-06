@@ -5,6 +5,8 @@
 namespace mda
 {
 
+
+
 // Tiles -> 9x14
 
 sf::Texture* tileset;
@@ -67,4 +69,5 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 }
 
 }
+
 
