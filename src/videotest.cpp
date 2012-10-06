@@ -21,38 +21,38 @@ int main(int ac, char** av)
 			MDA::vert_disp = 25;
 			MDA::video_enable = 1;
 		}
-/*		if(arg == "--hgc")
-		{
-			hgc = true;
-			u8* MDA_ROM_ptr = MDA::ROM;
-			fread(MDA_ROM_ptr,1,0x2000,rom);
-			HGC::Register();
-			MDA::textcols = 1;
-			MDA::horz_disp = 720;
-			MDA::vert_disp = 347;
-			HGC::hercules = 1;
-			MDA::video_enable = 1;
-		}
-		if(arg == "--cga")
-		{
-			cga = true;
-			u8* CGA_ROM_ptr = CGA::ROM;
-			fread(CGA_ROM_ptr,1,0x2000,rom);
-			CGA::Register();
-			CGA::textcols = 0;
-			CGA::textmode = 1;
-			CGA::color = 0;
-			CGA::horz_disp = 320;
-			CGA::vert_disp = 199;
-			CGA::video_enable = 1;
-		}
-		if(arg == "--ega")
-		{
-			ega = true;
-			EGA::Register();
-			EGA::crtc.horz_disp_end = 321;
-			EGA::crtc.vert_disp_end = 200;
-		}*/
+		/*		if(arg == "--hgc")
+				{
+					hgc = true;
+					u8* MDA_ROM_ptr = MDA::ROM;
+					fread(MDA_ROM_ptr,1,0x2000,rom);
+					HGC::Register();
+					MDA::textcols = 1;
+					MDA::horz_disp = 720;
+					MDA::vert_disp = 347;
+					HGC::hercules = 1;
+					MDA::video_enable = 1;
+				}
+				if(arg == "--cga")
+				{
+					cga = true;
+					u8* CGA_ROM_ptr = CGA::ROM;
+					fread(CGA_ROM_ptr,1,0x2000,rom);
+					CGA::Register();
+					CGA::textcols = 0;
+					CGA::textmode = 1;
+					CGA::color = 0;
+					CGA::horz_disp = 320;
+					CGA::vert_disp = 199;
+					CGA::video_enable = 1;
+				}
+				if(arg == "--ega")
+				{
+					ega = true;
+					EGA::Register();
+					EGA::crtc.horz_disp_end = 321;
+					EGA::crtc.vert_disp_end = 200;
+				}*/
 	}
 	fclose(rom);
 	Video.Init();
@@ -61,10 +61,10 @@ int main(int ac, char** av)
 
 	for(;;)
 	{
-		if(mda == true) for(int i = 0;i<0x8000;i++)
-		{
-			RAM16::RAM[i + 0xB0000] = rand() & 0xFF;
-		}
+		if(mda == true) for(int i = 0; i<0x8000; i++)
+			{
+				RAM16::RAM[i + 0xB0000] = rand() & 0xFF;
+			}
 		/*
 		if(cga == true) for(int i = 0;i<16000;i++)
 		{

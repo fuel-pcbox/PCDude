@@ -3,7 +3,7 @@ namespace EGA
 void Register()
 {
 	Video.gfxCardRender = &tick;
-	Video.gfxCardGetDisplaySize = []() -> std::tuple<int,int> {return std::make_tuple(720,350);};	
+	Video.gfxCardGetDisplaySize = []() -> std::tuple<int,int> {return std::make_tuple(720,350);};
 	tileset = new sf::Texture();
 	tileset->loadFromFile("gfx/mda.png");
 }
@@ -22,11 +22,11 @@ void tick(sf::RenderWindow& win)
 	int ymax = crtc.vert_disp_end;
 	if(seq.clock & 1) xmax << 3;
 	else xmax *= 9;
-	for(int i = 0;i<ymax;i++)
+	for(int i = 0; i<ymax; i++)
 	{
-		for(int k = 0;k<((crtc.max_scan & 0xF)+1);k++)
+		for(int k = 0; k<((crtc.max_scan & 0xF)+1); k++)
 		{
-			for(int j = 0;j<xmax;j++)
+			for(int j = 0; j<xmax; j++)
 			{
 				u8 col = RAM16::RAM[0xA0000 + ((j+(i*xmax))>>1)];
 				col = col & ((((j+(i*xmax)))&1) ? 0x0F : 0xF0);
