@@ -36,6 +36,8 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 	frame++;
 	frame &= 7; // frame %= 8;
 	sf::RectangleShape fillrct(sf::Vector2f(9.0F,14.0F));
+	sf::RectangleShape chrct(sf::Vector2f(9.0F,14.0F));
+	chrct.setTexture(tileset);
 	for(int i = 0; i<(xmax*ymax); i++) // Foreach(character in memory)
 	{
 		u8 chr = RAM16::RAM[(0xb0000)+(i<<1)]; // Character number
@@ -63,8 +65,14 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 			if(high_intensity == true) fg=sf::Color(0,250,0);
 		}
 		sf::Vector2f pos(i%xmax , i/ymax);
+		// Draws background
 		fillrct.setPosition(pos);
 		rw.draw(fillrct);
+		// Draws character
+		int chx = chr & 63;
+		int chy = chr >>5;
+		chrct.setTextureRect(sf::IntRect(chx,chy,9,14));
+		rw.draw(chrct);
 	}
 }
 

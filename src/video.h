@@ -35,6 +35,8 @@ public:
 	bool PollEvent();
 	void RefreshScreen();
 
+	sf::Font fntMono, fntMonoBold, fntSans;
+	sfg::Desktop gui;
 
 };
 

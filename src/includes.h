@@ -20,6 +20,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <SFGUI/SFGUI.hpp>
 
 typedef uint8_t u8;
 typedef uint16_t u16;
