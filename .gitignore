@@ -7,3 +7,6 @@ build
 .s*
 *.rom
 *.u33
+log.txt
+log.*
+*.log
