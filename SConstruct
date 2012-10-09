@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 from os import *
+import sys
+import platform
 
 varss = Variables()
+varss.Add('debug', 'Set to 1 to compile with debug symbols', 1)
 varss.Add('mda', 'Set to 1 to compile the MDA graphics card', 1)
 varss.Add('cga', 'Set to 1 to compile the CGA graphics card', 0)
 varss.Add('ega', 'Set to 1 to compile the EGA graphics card', 0)
@@ -28,6 +31,7 @@ usemda = ARGUMENTS.get('mda', 1)
 usecga = ARGUMENTS.get('cga', 0)
 useega = ARGUMENTS.get('ega', 0)
 usehercules = ARGUMENTS.get('hercules', 0)
+dbg = ARGUMENTS.get('debug', 1)
 
 if usemda>0:
 	SRCS += ['build/mda.cpp']
@@ -41,6 +45,10 @@ if useega>0:
 if usehercules>0:
 	SRCS += ['build/hercules.cpp']
 	CMDDEFS += ['USE_HERCULES']
+if dbg>0:
+	CMDOPTS += ['-g']
+else:
+	CMDOPTS += ['-O2']
 
 env.Program(
 target = 'pc',

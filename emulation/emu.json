@@ -1,7 +1,7 @@
 
 {
 	bios: "pcxt.rom",
-	graphics {
+	graphics: {
 		card: "mda", 
 		rom: "5788005.u33"
 	}

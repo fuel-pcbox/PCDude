@@ -192,6 +192,8 @@ int tick();
 #include "videocards.h"
 
 #define addr ((cs<<4)+ip)
+#define PCLOG1(FSTR) printf( FSTR "\n"  )
+#define PCLOG(FSTR,...) printf( FSTR "\n" , __VA_ARGS__ )
 
 #endif
 
