@@ -68,6 +68,10 @@ int main(int argc,char** argv, char** envv)
 			{
 				return 2;
 			}
+			else
+			{
+				Video.gui.HandleEvent(Video.ev);
+			}
 		}
 		Video.RefreshScreen();
 		PIT::tick();

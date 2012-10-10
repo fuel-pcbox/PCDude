@@ -15,6 +15,7 @@ env = Environment(variables=varss)
 
 env.ParseConfig('pkg-config --cflags sfml-all')
 env.ParseConfig('pkg-config --libs sfml-all')
+env.Append(LIBS=['sfgui'])
 
 SRCS = Split("""
 build/apidefs.cpp

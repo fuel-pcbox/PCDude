@@ -10,13 +10,16 @@ void Video_t::Init()
 	fntMonoBold.loadFromFile("gfx/libermono-bold.ttf");
 	fntSans.loadFromFile("gfx/libersans.ttf");
 	
-	gui.
+	
 }
 
 void Video_t::RefreshScreen()
 {
+	static sf::Clock c;
+	gui.Update(c.restart().asSeconds());
 	win.clear();
 	gfxCardRender(win,24,72);
+	gs.Display(win);
 	win.display();
 }
 

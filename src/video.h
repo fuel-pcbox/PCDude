@@ -37,6 +37,7 @@ public:
 
 	sf::Font fntMono, fntMonoBold, fntSans;
 	sfg::Desktop gui;
+	sfg::SFGUI gs;
 
 };
 
