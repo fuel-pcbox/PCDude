@@ -1,0 +1,50 @@
+
+[indentation]
+indent_width=4
+indent_type=1
+indent_hard_tab_width=8
+detect_indent=false
+detect_indent_width=false
+indent_mode=2
+
+[project]
+name=PCDude
+base_path=/dane/Projekty/PCDude/
+description=
+file_patterns=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=4
+FILE_NAME_0=0;Python;0;16;1;1;0;/dane/Projekty/PCDude/SConstruct;0;4
+FILE_NAME_1=0;C;0;16;1;1;0;/dane/Projekty/PCDude/src/api.h;0;4
+FILE_NAME_2=0;C;0;16;1;1;0;/dane/Projekty/PCDude/src/includes.h;0;4
+FILE_NAME_3=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/mda.cpp;0;4
+FILE_NAME_4=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/pc.cpp;0;4
+FILE_NAME_5=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/video.cpp;0;4
+FILE_NAME_6=0;C;0;16;1;1;0;/dane/Projekty/PCDude/src/video.h;0;4
+FILE_NAME_7=0;C;0;16;1;1;0;/dane/Projekty/PCDude/src/videocards.h;0;4
+
+[VTE]
+last_dir=/home/kubasz
+
+[build-menu]
+NF_00_LB=_Make
+NF_00_CM=scons
+NF_00_WD=%p
+NF_01_LB=Zbuduj przy użyciu własnych parame_trów
+NF_01_CM=scons 
+NF_01_WD=%p
+NF_02_LB=Zbuduj _obiekt
+NF_02_CM=scons %e.o
+NF_02_WD=%p
+C++FT_00_LB=_Skompiluj
+C++FT_00_CM=echo 
+C++FT_00_WD=%p
+C++FT_01_LB=Z_buduj
+C++FT_01_CM=echo 
+C++FT_01_WD=%p
+filetypes=C++;
