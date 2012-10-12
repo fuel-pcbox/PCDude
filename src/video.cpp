@@ -9,8 +9,8 @@ void Video_t::Init()
 	fntMono.loadFromFile("gfx/libermono.ttf");
 	fntMonoBold.loadFromFile("gfx/libermono-bold.ttf");
 	fntSans.loadFromFile("gfx/libersans.ttf");
-	
-	
+
+
 }
 
 void Video_t::RefreshScreen()
