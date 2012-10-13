@@ -26,7 +26,7 @@ void Video_t::RefreshScreen()
 	rs.setFillColor(sf::Color::Transparent);
 	gui.Update(c.restart().asSeconds());
 	win.clear(sf::Color(237,230,197));
-	
+
 	gfxCardRender(win,24,72);
 	RefreshRegisters();
 	gs.Display(win);
