@@ -1,4 +1,4 @@
 {
-bios: "add.bin",
+bios: "add.rom",
 graphics: { card: "mda" }
 }
