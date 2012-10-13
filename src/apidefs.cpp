@@ -673,6 +673,7 @@ void dumpregs()
 	printf("si: %04x\n",si);
 	printf("bp: %04x\n",bp);
 	printf("flags: %04x\n",flags);
+	printf("addr: %08x\n",((cs<<4)+ip));
 }
 
 

@@ -1,0 +1,4 @@
+{
+bios: "add.bin",
+graphics: { card: "mda" }
+}

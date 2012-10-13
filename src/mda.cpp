@@ -35,6 +35,10 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 	static int frame = -1;
 	frame++;
 	frame &= 7; // frame %= 8;
+	sf::RectangleShape ff_(sf::Vector2f(720,350));
+	ff_.setPosition(sf::Vector2f(xoff,yoff));
+	ff_.setFillColor(sf::Color::Black);
+	rw.draw(ff_);
 	sf::RectangleShape fillrct(sf::Vector2f(9.0F,14.0F));
 	sf::RectangleShape chrct(sf::Vector2f(9.0F,14.0F));
 	chrct.setTexture(tileset);
@@ -64,14 +68,16 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 			if(attr & 0x08) high_intensity = true;
 			if(high_intensity == true) fg=sf::Color(0,250,0);
 		}
-		sf::Vector2f pos(i%xmax , i/ymax);
+		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/ymax) * 14 + yoff);
 		// Draws background
 		fillrct.setPosition(pos);
+		fillrct.setFillColor(bg);
 		rw.draw(fillrct);
 		// Draws character
 		int chx = chr & 63;
 		int chy = chr >>5;
 		chrct.setTextureRect(sf::IntRect(chx,chy,9,14));
+		chrct.setFillColor(fg);
 		rw.draw(chrct);
 	}
 }

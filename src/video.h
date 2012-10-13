@@ -34,11 +34,13 @@ public:
 	void Init();
 	bool PollEvent();
 	void RefreshScreen();
+	void RefreshRegisters();
 
 	sf::Font fntMono, fntMonoBold, fntSans;
-	sfg::Desktop gui;
 	sfg::SFGUI gs;
-
+	sfg::Desktop gui;
+	sfg::Fixed::Ptr guis;
+	sfg::Label::Ptr regs;
 };
 
 extern Video_t Video;
