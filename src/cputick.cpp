@@ -1993,7 +1993,7 @@ int CPU::tick()
 					printf("MOV BYTE PTR DS:[BX],%02x\n",RAM16::RAM[addr+2]);
 					RAM16::RAM[(ds<<4)+(bx)] = RAM16::RAM[addr+2];
 					break;
-				} 
+				}
 				}
 				ip+=3;
 				break;
@@ -2593,19 +2593,19 @@ int CPU::tick()
 				u8 modrm = RAM16::RAM[addr+1];
 				switch((modrm>>3)&7)
 				{
+				case 4:
+				{
+					switch(modrm&7)
+					{
 					case 4:
 					{
-						switch(modrm&7)
-						{
-							case 4:
-							{
-								printf("JMP SP\n");
-								ip = sp;
-								break;
-							}
-						}
+						printf("JMP SP\n");
+						ip = sp;
 						break;
 					}
+					}
+					break;
+				}
 				}
 				ip+=2;
 				break;

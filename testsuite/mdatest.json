@@ -1,9 +1,0 @@
-
-{
-	bios: "mdatest.rom",
-	graphics: {
-		card: "mda", 
-		rom: "5788005.u33"
-	}
-}
-
