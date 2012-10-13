@@ -787,6 +787,17 @@ int CPU::tick()
 				ip+=1;
 				break;
 			}
+			case 0x4B:
+			{
+				printf("DEC BX\n");
+				bx--;
+				if(bx == 0) flags |= 0x0040;
+				else flags &= 0xFFBF;
+				if(bx >= 0x8000) flags |= 0x0800;
+				else flags &= 0xF7FF;
+				ip+=1;
+				break;
+			}
 			case 0x4D:
 			{
 				printf("DEC BP\n");
@@ -1161,6 +1172,18 @@ int CPU::tick()
 				{
 					switch(modrm&7)
 					{
+					case 4:
+					{
+						printf("CMP SP,%04x\n",(RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
+						u16 tmp = sp - ((RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
+						if(tmp > sp) flags |= 0x0800;
+						else flags &= 0xF7FF;
+						if(tmp >= 0x8000) flags |= 0x0080;
+						else flags &= 0xFF7F;
+						if(tmp == 0) flags |= 0x0040;
+						else flags &= 0xFFBF;
+						break;
+					}
 					case 6:
 					{
 						switch((modrm>>6)&3)
@@ -1297,6 +1320,12 @@ int CPU::tick()
 					printf("MOV WORD PTR DS:[DI+%02x],DX\n",RAM16::RAM[addr+2]);
 					dx = (RAM16::RAM[di + (ds<<4) + (s8)(RAM16::RAM[addr+2])]<<8)|RAM16::RAM[di+(ds<<4)+(s8)(RAM16::RAM[addr+2])+1];
 					ip+=1;
+					break;
+				}
+				case 0xC2:
+				{
+					printf("MOV DX,AX\n");
+					dx = ax;
 					break;
 				}
 				}
@@ -1457,10 +1486,22 @@ int CPU::tick()
 					cx = bp;
 					break;
 				}
+				case 0xD1:
+				{
+					printf("MOV DX,CX\n");
+					dx = cx;
+					break;
+				}
 				case 0xD4:
 				{
 					printf("MOV DX,SP\n");
 					dx = sp;
+					break;
+				}
+				case 0xD5:
+				{
+					printf("MOV DX,BP\n");
+					dx = bp;
 					break;
 				}
 				case 0xD8:
@@ -1509,6 +1550,18 @@ int CPU::tick()
 				{
 					printf("MOV BP,SP\n");
 					bp = sp;
+					break;
+				}
+				case 0xEF:
+				{
+					printf("MOV BP,DI\n");
+					bp = di;
+					break;
+				}
+				case 0xF2:
+				{
+					printf("MOV SI,DX\n");
+					si = dx;
 					break;
 				}
 				case 0xF5:
@@ -1575,6 +1628,12 @@ int CPU::tick()
 					ax = cs;
 					break;
 				}
+				case 0xD0:
+				{
+					printf("MOV AX,SS\n");
+					ax = ss;
+					break;
+				}
 				case 0xD2:
 				{
 					printf("MOV DX,SS\n");
@@ -1624,6 +1683,12 @@ int CPU::tick()
 				{
 					printf("MOV ES,BX\n");
 					es = bx;
+					break;
+				}
+				case 0xC5:
+				{
+					printf("MOV ES,BP\n");
+					es = bp;
 					break;
 				}
 				case 0xC6:
@@ -1890,6 +1955,7 @@ int CPU::tick()
 			{
 				printf("MOV DI, %04x\n",(RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1]);
 				di = (RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1];
+
 				ip+=3;
 				break;
 			}
@@ -1915,6 +1981,21 @@ int CPU::tick()
 				}
 				}
 				ip+=2;
+				break;
+			}
+			case 0xC6:
+			{
+				u8 modrm = RAM16::RAM[addr+1];
+				switch(modrm)
+				{
+				case 0x07:
+				{
+					printf("MOV BYTE PTR DS:[BX],%02x\n",RAM16::RAM[addr+2]);
+					RAM16::RAM[(ds<<4)+(bx)] = RAM16::RAM[addr+2];
+					break;
+				} 
+				}
+				ip+=3;
 				break;
 			}
 			case 0xC7:
@@ -2503,6 +2584,28 @@ int CPU::tick()
 					}
 					break;
 				}
+				}
+				ip+=2;
+				break;
+			}
+			case 0xFF:
+			{
+				u8 modrm = RAM16::RAM[addr+1];
+				switch((modrm>>3)&7)
+				{
+					case 4:
+					{
+						switch(modrm&7)
+						{
+							case 4:
+							{
+								printf("JMP SP\n");
+								ip = sp;
+								break;
+							}
+						}
+						break;
+					}
 				}
 				ip+=2;
 				break;
