@@ -1,6 +1,6 @@
 kmain:
 nop
 jmp near kmain
-align 8176, nop
+times 8176 - ($-$$) db 90
 jmp near kmain
-align 8192, nop
+times 8192 - ($-$$) db 90
