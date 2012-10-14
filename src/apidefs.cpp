@@ -656,6 +656,7 @@ int InitCPU(int t)
 		cs = 0xF000;
 		ip = 0xFFF0;
 	}
+	return 0;
 }
 
 void dumpregs()
