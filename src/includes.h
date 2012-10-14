@@ -23,6 +23,12 @@
 #include <SFML/Network.hpp>
 #include <SFGUI/SFGUI.hpp>
 
+#ifdef USE_NCURSES
+#include <ncurses.h>
+#endif
+
+using std::shared_ptr;
+
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef int8_t s8;

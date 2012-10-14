@@ -41,7 +41,7 @@ usecga = ARGUMENTS.get('cga', 0)
 useega = ARGUMENTS.get('ega', 0)
 usehercules = ARGUMENTS.get('hercules', 0)
 dbg = ARGUMENTS.get('debug', 1)
-usenc = ARGUMENTS.get('ncurses', isLinux)
+usenc = ARGUMENTS.get('ncurses', (0 if isWinXX else 1) )
 
 if usemda>0:
 	SRCS += ['build/mda.cpp']
@@ -55,6 +55,9 @@ if useega>0:
 if usehercules>0:
 	SRCS += ['build/hercules.cpp']
 	CMDDEFS += ['USE_HERCULES']
+if usenc>0:
+	CMDDEFS += ['USE_NCURSES']
+	env.Append(LIBS=['ncurses'])
 if dbg>0:
 	CMDOPTS += ['-g']
 else:

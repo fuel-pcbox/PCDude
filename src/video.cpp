@@ -2,6 +2,20 @@
 #include "video.h"
 #include "api.h"
 
+Video_t::Video_t()
+{
+#ifdef USE_NCURSES
+	initscr();
+#endif
+}
+
+Video_t::~Video_t()
+{
+#ifdef USE_NCURSES
+	endwin();
+#endif
+}
+
 void Video_t::Init()
 {
 	win.create( sf::VideoMode(900,600), "PCDude - 8086 emulator", sf::Style::Default^sf::Style::Resize );
@@ -14,6 +28,10 @@ void Video_t::Init()
 	float tmx, tmy;
 	tmx = win.getSize().x - 130;
 	guis->Put(regs,sf::Vector2f(tmx,tmy));
+#ifdef USE_NCURSES
+	w.reset(newwin(0,0,0,0),&delwin);
+	wrefresh(w.get());
+#endif
 }
 
 void Video_t::RefreshScreen()

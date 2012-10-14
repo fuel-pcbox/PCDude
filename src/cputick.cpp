@@ -1,4 +1,5 @@
 
+#include "video.h"
 #include "api.h"
 
 int CPU::tick()

@@ -21,10 +21,8 @@ public:
 class Video_t
 {
 public:
-	Video_t() {}
-	virtual ~Video_t()
-	{
-	}
+	Video_t();
+	virtual ~Video_t();
 
 	sf::RenderWindow win;
 	sf::Event ev;
@@ -41,6 +39,10 @@ public:
 	sfg::Desktop gui;
 	sfg::Fixed::Ptr guis;
 	sfg::Label::Ptr regs;
+	
+#ifdef USE_NCURSES
+	shared_ptr<WINDOW> w;
+#endif
 };
 
 extern Video_t Video;
