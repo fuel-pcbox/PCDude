@@ -65,7 +65,6 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 			if(high_intensity == true) fg=sf::Color(0,250,0);
 		}
 		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
-		printf("X,Y = (%f;%f)",pos.x,pos.y);
 		// Draws background
 		fillrct.setPosition(pos);
 		fillrct.setFillColor(bg);
