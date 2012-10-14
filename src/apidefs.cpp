@@ -1,4 +1,5 @@
 
+#include "video.h"
 #include "api.h"
 
 namespace CPU_IRQ
@@ -134,7 +135,7 @@ namespace PIT
 {
 void dumpPITstate()
 {
-	printf("counter: %04x\n",counter);
+	wprintw(Video.w.get(),"counter: %04x\n",counter);
 }
 
 void tick()
@@ -213,7 +214,7 @@ void tick()
 	}
 	default:
 	{
-		printf("PIT: Unimplemented operation mode %02x!\n",opmode);
+		wprintw(Video.w.get(),"PIT: Unimplemented operation mode %02x!\n",opmode);
 		break;
 	}
 	}
@@ -444,7 +445,7 @@ void wb(u16 addr, u8 value)
 	if(addr == 0x00A0)
 	{
 		nmi_enabled = value & 0x80;
-		printf("NMI write %02x!\n",value);
+		wprintw(Video.w.get(),"NMI write %02x!\n",value);
 	}
 	if(addr == 0x0278)
 	{
@@ -477,7 +478,7 @@ void wb(u16 addr, u8 value)
 		MDA::video_enable = (value & 8) >> 3;
 		MDA::graphicsmode = (value & 0x10) >> 4;
 		MDA::attr_blink_mode = (value & 0x20) >> 5;
-		printf("MDA mode control write %02x!\n",value);
+		wprintw(Video.w.get(),"MDA mode control write %02x!\n",value);
 	}
 	if(addr == 0x03BC)
 	{
@@ -659,21 +660,21 @@ int InitCPU(int t)
 
 void dumpregs()
 {
-	printf("ax: %04x\n",ax);
-	printf("bx: %04x\n",bx);
-	printf("cx: %04x\n",cx);
-	printf("dx: %04x\n",dx);
-	printf("cs: %04x\n",cs);
-	printf("ip: %04x\n",ip);
-	printf("ss: %04x\n",ss);
-	printf("sp: %04x\n",sp);
-	printf("ds: %04x\n",ds);
-	printf("es: %04x\n",es);
-	printf("di: %04x\n",di);
-	printf("si: %04x\n",si);
-	printf("bp: %04x\n",bp);
-	printf("flags: %04x\n",flags);
-	printf("addr: %08x\n",((cs<<4)+ip));
+	mvwprintw(Video.w.get(),3,2,"ax: %04x\n",ax);
+	wprintw(Video.w.get(),"bx: %04x\n",bx);
+	wprintw(Video.w.get(),"cx: %04x\n",cx);
+	wprintw(Video.w.get(),"dx: %04x\n",dx);
+	wprintw(Video.w.get(),"cs: %04x\n",cs);
+	wprintw(Video.w.get(),"ip: %04x\n",ip);
+	wprintw(Video.w.get(),"ss: %04x\n",ss);
+	wprintw(Video.w.get(),"sp: %04x\n",sp);
+	wprintw(Video.w.get(),"ds: %04x\n",ds);
+	wprintw(Video.w.get(),"es: %04x\n",es);
+	wprintw(Video.w.get(),"di: %04x\n",di);
+	wprintw(Video.w.get(),"si: %04x\n",si);
+	wprintw(Video.w.get(),"bp: %04x\n",bp);
+	wprintw(Video.w.get(),"flags: %04x\n",flags);
+	wprintw(Video.w.get(),"addr: %08x\n",((cs<<4)+ip));
 }
 
 
@@ -691,7 +692,7 @@ void dumpivt()
 {
 	for(int i = 0; i<0x400; i++)
 	{
-		printf("0x%02x\n",RAM16::RAM[i]);
+		wprintw(Video.w.get(),"0x%02x\n",RAM16::RAM[i]);
 	}
 }
 

@@ -65,6 +65,9 @@ int main(int argc,char** argv, char** envv)
 			{
 				return 1;
 			}
+#ifdef USE_NCURSES
+			wrefresh(Video.w.get());
+#endif
 		}
 #ifdef USE_MDA
 		while(Video.PollEvent())

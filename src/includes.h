@@ -25,6 +25,10 @@
 
 #ifdef USE_NCURSES
 #include <ncurses.h>
+#else
+#define wprintw(x,...) printf(__VA_ARGS__)
+#define mvwprintw(x,y,z,...) printf(__VA_ARGS__)
+#define printw(...) printf(__VA_ARGS__)
 #endif
 
 using std::shared_ptr;

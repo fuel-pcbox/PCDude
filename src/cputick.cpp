@@ -2,6 +2,10 @@
 #include "video.h"
 #include "api.h"
 
+#ifdef USE_NCURSES
+#define printf(...)  mvwprintw(Video.w.get(),1,2,__VA_ARGS__)
+#endif
+
 int CPU::tick()
 {
 	switch(type)
