@@ -69,41 +69,41 @@ To use the map, find the cell in the row labelled with the opcode's most signifi
 						<span><a href="#addr_G">G</a><a href="#oper_v">v</a></span>
 					</p>
 				</td>
-				<td class="cell checker0">
+				<td class="cell checkerd">
 					<p>ADD</p>
 					<p>
 						<span><a href="#addr_G">G</a><a href="#oper_b">b</a></span>
 						<span><a href="#addr_E">E</a><a href="#oper_b">b</a></span>
 					</p>
 				</td>
-				<td class="cell checker1">
+				<td class="cell checkerd">
 					<p>ADD</p>
 					<p>
 						<span><a href="#addr_G">G</a><a href="#oper_v">v</a></span>
 						<span><a href="#addr_E">E</a><a href="#oper_v">v</a></span>
 					</p>
 				</td>
-				<td class="cell checker0">
+				<td class="cell checkerd">
 					<p>ADD</p>
 					<p>
 						<span><a href="#arg_AL">AL</a></span>
 						<span><a href="#addr_I">I</a><a href="#oper_b">b</a></span>
 					</p>
 				</td>
-				<td class="cell checker1">
+				<td class="cell checkerd">
 					<p>ADD</p>
 					<p>
 						<span><a href="#arg_AX">AX</a></span>
 						<span><a href="#addr_I">I</a><a href="#oper_v">v</a></span>
 					</p>
 				</td>
-				<td class="cell checker0">
+				<td class="cell checkerd">
 					<p>PUSH</p>
 					<p>
 						<span><a href="#arg_ES">ES</a></span>
 					</p>
 				</td>
-				<td class="cell checker1">
+				<td class="cell checkerd">
 					<p>POP</p>
 					<p>
 						<span><a href="#arg_ES">ES</a></span>
