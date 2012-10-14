@@ -12,7 +12,7 @@ varss.Add('hercules', 'Set to 1 to compile the Hercules graphics card', 0)
 varss.Add('ncurses', 'Set to 1 to show debug information in an ncurses terminal', 1)
 
 VariantDir('build', 'src', duplicate=0)
-env = Environment(variables=varss)
+env = Environment()
 
 p = platform.system()
 isLinux = (p=='Linux')
@@ -43,22 +43,24 @@ usehercules = ARGUMENTS.get('hercules', 0)
 dbg = ARGUMENTS.get('debug', 1)
 usenc = ARGUMENTS.get('ncurses', (0 if isWinXX else 1) )
 
-if usemda>0:
+print(dbg)
+
+if usemda==1:
 	SRCS += ['build/mda.cpp']
 	CMDDEFS += ['USE_MDA']
-if usecga>0:
+if usecga==1:
 	SRCS += ['build/cga.cpp']
 	CMDDEFS += ['USE_CGA']
-if useega>0:
+if useega==1:
 	SRCS += ['build/ega.cpp']
 	CMDDEFS += ['USE_EGA']
-if usehercules>0:
+if usehercules==1:
 	SRCS += ['build/hercules.cpp']
 	CMDDEFS += ['USE_HERCULES']
-if usenc>0:
+if usenc==1:
 	CMDDEFS += ['USE_NCURSES']
 	env.Append(LIBS=['ncurses'])
-if dbg>0:
+if dbg==1:
 	CMDOPTS += ['-g']
 else:
 	CMDOPTS += ['-O2']
