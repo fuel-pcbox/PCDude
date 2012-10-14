@@ -9,12 +9,20 @@ varss.Add('mda', 'Set to 1 to compile the MDA graphics card', 1)
 varss.Add('cga', 'Set to 1 to compile the CGA graphics card', 0)
 varss.Add('ega', 'Set to 1 to compile the EGA graphics card', 0)
 varss.Add('hercules', 'Set to 1 to compile the Hercules graphics card', 0)
+varss.Add('ncurses', 'Set to 1 to show debug information in an ncurses terminal', 1)
 
 VariantDir('build', 'src', duplicate=0)
 env = Environment(variables=varss)
 
-env.ParseConfig('pkg-config --cflags sfml-all')
-env.ParseConfig('pkg-config --libs sfml-all')
+p = platform.system()
+isLinux = (p=='Linux')
+isWinXX = (p=='Windows')
+
+if not isWinXX:
+	env.ParseConfig('pkg-config --cflags sfml-all')
+	env.ParseConfig('pkg-config --libs sfml-all')
+else:
+	env.Append(LIBS=['sfml-graphics','sfml-audio','sfml-network','sfml-window','sfml-system'])
 env.Append(LIBS=['sfgui'])
 
 SRCS = Split("""
@@ -33,6 +41,7 @@ usecga = ARGUMENTS.get('cga', 0)
 useega = ARGUMENTS.get('ega', 0)
 usehercules = ARGUMENTS.get('hercules', 0)
 dbg = ARGUMENTS.get('debug', 1)
+usenc = ARGUMENTS.get('ncurses', isLinux)
 
 if usemda>0:
 	SRCS += ['build/mda.cpp']
