@@ -42,7 +42,7 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 	{
 		u8 chr =  RAM16::RAM[(0xb0000)+(i<<1)]; // Character number
 		u8 attr = RAM16::RAM[(0xb0001)+(i<<1)]; // Attribute part
-		sf::Color fg(0,210,0),bg(sf::Color::Black); // Render color
+		sf::Color fg(255,255,255),bg(sf::Color::Black); // Render color
 		bool underline=false,high_intensity=false;
 		if(attr == 0 || attr == 8 || attr == 0x80 || attr == 0x88) // Invisible
 		{
@@ -50,22 +50,22 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 		}
 		else if(attr == 0x70 || attr == 0xF0) // Black on green
 		{
-			bg = sf::Color::Black;
-			fg = sf::Color(0,250,0);
+			bg = sf::Color(255,255,255);
+			fg = sf::Color::Black;
 		}
 		else if(attr == 0x78 || attr == 0xF8) // Dark green on green
 		{
-			bg = sf::Color(0,250,0);
-			fg = sf::Color(0,120,0);
+			bg = sf::Color(255,255,255);
+			fg = sf::Color(127,127,127);
 		}
 		else
 		{
 			if(attr & 0x01) underline = true;
 			if(attr & 0x08) high_intensity = true;
-			if(high_intensity == true) fg=sf::Color(0,250,0);
+			if(high_intensity == true) fg=sf::Color(255,255,255);
+			else fg=sf::Color(127,127,127);
 		}
 		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
-		printf("X,Y = (%f;%f)",pos.x,pos.y);
 		// Draws background
 		fillrct.setPosition(pos);
 		fillrct.setFillColor(bg);

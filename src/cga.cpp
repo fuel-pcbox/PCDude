@@ -169,12 +169,12 @@ void tick(sf::RenderWindow& win)
 					{
 						u8 col = RAM16::RAM[0xb8000 + ((j+(i*xmax))>>3)];
 						col = (((col >> (1 << ((j+(i*xmax)) % 9))) & 1);
-						       putpixelmono(win,j,i,col);
+						putpixelmono(win,j,i,col);
 					}
 				}
 			}
 		}
-		       if(color == 0)
+		if(color == 0)
 		{
 			int ymax = vert_disp;
 			int xmax = horz_disp + 1;
@@ -184,7 +184,7 @@ void tick(sf::RenderWindow& win)
 				{
 					u8 col = RAM16::RAM[0xb8000 + ((j+(i*xmax))>>2)];
 					col = (((col >> (1 << ((j+(i*xmax)) % 9))) & 3);
-					       putpixelcolor(win,j,i,col);
+					putpixelcolor(win,j,i,col);
 				}
 			}
 		}

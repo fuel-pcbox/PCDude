@@ -37,8 +37,8 @@ void tick(sf::RenderWindow& win)
 				u8 col = RAM16::RAM[0xb0000 + ((j+(i*xmax))>>3)];
 				col = (((col >> (1 << ((j+(i*xmax)) % 9))) & 1);
 				       putpixel(win,j,i,col);
-			}
-		}
+			       }
+		       }
 	       else MDA::tick();
 	framecounter++;
 	if(framecounter == 16) framecounter = 0;
