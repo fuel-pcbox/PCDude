@@ -218,6 +218,13 @@ int CPU::tick()
 				ip+=2;
 				break;
 			}
+			case 0x0D:
+			{
+				printf("OR AX,%04x\n",(RAM16::RAM[addr+2]<<8)|RAM16::RAM[addr+1]);
+				ax |= (RAM16::RAM[addr+2]<<8)|RAM16::RAM[addr+1];
+				ip+=3;
+				break;
+			}
 			case 0x0E:
 			{
 				printf("PUSH CS\n");
