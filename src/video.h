@@ -39,7 +39,7 @@ public:
 	sfg::Desktop gui;
 	sfg::Fixed::Ptr guis;
 	sfg::Label::Ptr regs;
-	
+
 #ifdef USE_NCURSES
 	shared_ptr<WINDOW> w;
 #endif

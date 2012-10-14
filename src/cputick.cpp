@@ -588,18 +588,18 @@ int CPU::tick()
 						{
 							switch(modrm>>6)
 							{
-								case 0:
-								{
-									printf("TEST BYTE PTR DS:%04x,%02x\n",((RAM16::RAM[addr+4]<<8)|RAM16::RAM[addr+3]),RAM16::RAM[addr+5]);
-									u8 tmp = RAM16::RAM[(ds<<4)+((RAM16::RAM[addr+4]<<8)|RAM16::RAM[addr+3])] & RAM16::RAM[addr+5];
-									flags &= 0xF7FE;
-									if(tmp>=0x80) flags |= 0x0080;
-									else flags &= 0xFF7F;
-									if(tmp==0) flags |= 0x0040;
-									else flags &= 0xFFBF;
-									ip+=2;
-									break;
-								}
+							case 0:
+							{
+								printf("TEST BYTE PTR DS:%04x,%02x\n",((RAM16::RAM[addr+4]<<8)|RAM16::RAM[addr+3]),RAM16::RAM[addr+5]);
+								u8 tmp = RAM16::RAM[(ds<<4)+((RAM16::RAM[addr+4]<<8)|RAM16::RAM[addr+3])] & RAM16::RAM[addr+5];
+								flags &= 0xF7FE;
+								if(tmp>=0x80) flags |= 0x0080;
+								else flags &= 0xFF7F;
+								if(tmp==0) flags |= 0x0040;
+								else flags &= 0xFFBF;
+								ip+=2;
+								break;
+							}
 							}
 						}
 						}
@@ -609,7 +609,7 @@ int CPU::tick()
 					case 2:
 					{
 						switch(modrm&7)
-					{
+						{
 						case 0:
 						{
 							printf("NOT AL\n");
