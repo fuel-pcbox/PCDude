@@ -342,6 +342,12 @@ td.checker0 {
 td.checker1 {
 	background:			#eee;
 }
+td.checkerD {
+	background:			#29811E;
+}
+td.checkerH {
+	background:			#F3A412;
+}
 td.cell {
 	vertical-align:			top;
 	text-align:			center;
