@@ -7,7 +7,7 @@ kmain:
 	mov bx,0
 	mov byte [bx], 'A'
 	inc bx
-	mov byte [bx], 0x71
+	mov byte [bx], 0x09
 	nop
 jmp near kmain
 times 8176 - ($-$$) db 90
