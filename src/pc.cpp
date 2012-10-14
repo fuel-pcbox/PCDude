@@ -58,22 +58,28 @@ int main(int argc,char** argv, char** envv)
 
 	for(;;)
 	{
+#ifdef USE_NCURSES
+		wrefresh(Video.w.get());
+#endif
 		for(int i = 0; i<4; i++)
 		{
 			CPU::dumpregs();
 			if(CPU::tick() == 1)
 			{
+#ifdef USE_NCURSES
+				getch();
+#endif
 				return 1;
 			}
 		}
-#ifdef USE_NCURSES
-		wrefresh(Video.w.get());
-#endif
 #ifdef USE_MDA
 		while(Video.PollEvent())
 		{
 			if(Video.ev.type==sf::Event::Closed)
 			{
+#ifdef USE_NCURSES
+				getch();
+#endif
 				return 2;
 			}
 			else

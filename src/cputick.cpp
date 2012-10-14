@@ -1308,7 +1308,7 @@ int CPU::tick()
 					case 2:
 					{
 						printf("CMP DX,%04x\n",(RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
-						u16 tmp = dx - (RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2];
+						u16 tmp = dx - ((RAM16::RAM[addr+3]<<8)|RAM16::RAM[addr+2]);
 						if(tmp > dx) flags |= 0x0800;
 						else flags &= 0xF7FF;
 						if(tmp >= 0x8000) flags |= 0x0080;
@@ -2169,7 +2169,6 @@ int CPU::tick()
 				sp-=2;
 				RAM16::RAM[(ss<<4)+sp] = (ip+2) & 0xFF;
 				RAM16::RAM[(ss<<4)+sp+1] = (ip+2) >> 8;
-				int tmp = addr;
 				cs = (RAM16::RAM[(tmp1<<2)+2]<<8)|RAM16::RAM[(tmp1<<2)+3];
 				ip = (RAM16::RAM[(tmp1<<2)+1]<<8)|RAM16::RAM[(tmp1<<2)];
 				break;
@@ -2404,7 +2403,6 @@ int CPU::tick()
 					{
 					case 0:
 					{
-						u16 tmp = ax;
 						printf("SHL AX,CL\n");
 						ax <<= cl;
 						flags &= 0xFFFE;
@@ -2421,7 +2419,6 @@ int CPU::tick()
 					{
 					case 0:
 					{
-						u16 tmp = ax;
 						printf("SHR AX,CL\n");
 						ax >>= cl;
 						flags &= 0xFFFE;
@@ -2785,12 +2782,12 @@ int CPU::tick()
 			sp-=2;
 			RAM16::RAM[(ss<<4)+sp] = ip & 0xFF;
 			RAM16::RAM[(ss<<4)+sp+1] = ip >> 8;
-			int tmp = addr;
 			cs = (RAM16::RAM[(tmp1<<2)+2]<<8)|RAM16::RAM[(tmp1<<2)+3];
 			ip = (RAM16::RAM[(tmp1<<2)+1]<<8)|RAM16::RAM[(tmp1<<2)];
 		}
 		break;
 	}
 	}
+	return 0;
 }
 
