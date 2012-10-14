@@ -49,6 +49,23 @@ int CPU::tick()
 					else flags &= 0xFFFB;
 					break;
 				}
+				case 0xD8:
+				{
+					printf("ADD BX,AX\n");
+					bx += ax;
+					if(bx==0) flags |= 0x0040;
+					else flags &= 0xFFBF;
+					if(bx>=0x8000) flags |= 0x0001;
+					else flags &= 0xFFFE;
+					u16 tmp = 0;
+					for(int i = 0; i<16; i++)
+					{
+						tmp += (bx&(1<<i))>>i;
+					}
+					if(!(tmp&1)) flags |= 0x0004;
+					else flags &= 0xFFFB;
+					break;
+				}
 				case 0xF3:
 				{
 					printf("ADD SI,BX\n");
@@ -537,6 +554,15 @@ int CPU::tick()
 					ip+=2;
 					break;
 				}
+				case 0xAD:
+				{
+					printf("LODSW\n");
+					ax = (RAM16::RAM[(cs<<4)+si+1]<<8)|RAM16::RAM[(cs<<4)+si];
+					if(!(flags & 0x0400)) si+=2;
+					else si-=2;
+					ip+=1;
+					break;
+				}
 				case 0xFF:
 				{
 					u8 modrm = RAM16::RAM[addr+2];
@@ -659,6 +685,14 @@ int CPU::tick()
 					flags |= 0x0044;
 					break;
 				}
+				case 0xED:
+				{
+					printf("XOR BP,BP\n");
+					bp = 0;
+					flags &= 0xFFBA;
+					flags |= 0x0044;
+					break;
+				}
 				case 0xFF:
 				{
 					printf("XOR DI,DI\n");
@@ -668,8 +702,7 @@ int CPU::tick()
 					break;
 				}
 				}
-				inc_addr();
-				inc_addr();
+				ip+=2;
 				break;
 			}
 			case 0x34:
@@ -1238,6 +1271,23 @@ int CPU::tick()
 				ip+=3;
 				break;
 			}
+			case 0x84:
+			{
+				u8 modrm = RAM16::RAM[addr+1];
+				switch(modrm)
+				{
+				case 0xC4:
+				{
+					printf("TEST AH,AL\n");
+					u8 tmp = ah & al;
+					if(tmp==0) flags |= 0x0040;
+					else flags &= 0xFFBF;
+					break;
+				}
+				}
+				ip+=2;
+				break;
+			}
 			case 0x86:
 			{
 				u8 modrm = RAM16::RAM[addr+1];
@@ -1746,8 +1796,7 @@ int CPU::tick()
 					break;
 				}
 				}
-				inc_addr();
-				inc_addr();
+				ip+=2; 
 				break;
 			}
 			case 0x90:
@@ -1902,18 +1951,14 @@ int CPU::tick()
 			{
 				printf("MOV AX, %04x\n",(RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1]);
 				ax = (RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1];
-				inc_addr();
-				inc_addr();
-				inc_addr();
+				ip+=3;
 				break;
 			}
 			case 0xB9:
 			{
 				printf("MOV CX, %04x\n",(RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1]);
 				cx = (RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1];
-				inc_addr();
-				inc_addr();
-				inc_addr();
+				ip+=3; 
 				break;
 			}
 			case 0xBA:
@@ -2007,8 +2052,7 @@ int CPU::tick()
 				{
 					printf("MOV WORD PTR DS:%04x,%04x\n",(RAM16::RAM[addr+3]<<8) | RAM16::RAM[addr+2], (RAM16::RAM[addr+5]<<8) | RAM16::RAM[addr+4]);
 					RAM16::RAM[((ds<<4)+((RAM16::RAM[addr+3]<<8) | RAM16::RAM[addr+2]))] = (RAM16::RAM[addr+5]<<8) | RAM16::RAM[addr+4];
-					inc_addr();
-					inc_addr();
+					ip+=2;
 					break;
 				}
 				case 0x07:
@@ -2019,10 +2063,7 @@ int CPU::tick()
 					break;
 				}
 				}
-				inc_addr();
-				inc_addr();
-				inc_addr();
-				inc_addr();
+				ip+=4;
 				break;
 			}
 			case 0xCB:
@@ -2231,6 +2272,17 @@ int CPU::tick()
 						u8 tmp = al;
 						printf("SHL AL,CL\n");
 						al <<= cl;
+						if(tmp&(0x80>>cl)) flags |= 0x0001;
+						else flags &= 0xFFFE;
+						if(al==0) flags |= 0x0040;
+						else flags &= 0xFFBF;
+						break;
+					}
+					case 4:
+					{
+						u8 tmp = ah;
+						printf("SHL AH,CL\n");
+						ah <<= cl;
 						if(tmp&(0x80>>cl)) flags |= 0x0001;
 						else flags &= 0xFFFE;
 						if(ah==0) flags |= 0x0040;
@@ -2505,7 +2557,7 @@ int CPU::tick()
 			{
 				printf("CLI\n");
 				flags &= 0xFDFF;
-				inc_addr();
+				ip+=1;
 				break;
 			}
 			case 0xFB:
@@ -2519,7 +2571,7 @@ int CPU::tick()
 			{
 				printf("CLD\n");
 				flags &= 0xFBFF;
-				inc_addr();
+				ip++;
 				break;
 			}
 			case 0xFD:
