@@ -37,7 +37,7 @@ int main(int argc,char** argv, char** envv)
 	PCLOG("Loading BIOS image from %s..." , biosfn.c_str());
 	FILE* bios = fopen( biosfn.c_str() ,"rb");
 	u8* RAM_ptr = RAM16::RAM;
-	fread(RAM_ptr+0xf0000,1,0x10000,bios);
+	fread(RAM_ptr+0xfe000,1,0x2000,bios);
 	PCLOG1("Done!");
 
 	std::string gfxcard=settings.Get("graphics").AsObject().Get("card").ToString();
