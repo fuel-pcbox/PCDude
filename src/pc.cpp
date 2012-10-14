@@ -69,6 +69,7 @@ int main(int argc,char** argv, char** envv)
 #ifdef USE_NCURSES
 				getch();
 #endif
+				ureg();
 				return 1;
 			}
 		}
@@ -80,6 +81,7 @@ int main(int argc,char** argv, char** envv)
 #ifdef USE_NCURSES
 				getch();
 #endif
+				ureg();
 				return 2;
 			}
 			else
@@ -91,5 +93,6 @@ int main(int argc,char** argv, char** envv)
 #endif
 		PIT::tick();
 	}
+	ureg();
 }
 
