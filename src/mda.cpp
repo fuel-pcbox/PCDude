@@ -34,7 +34,7 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 {
 	static int frame = -1;
 	frame++;
-	frame &= 7; // frame %= 8;
+	frame &= 15; // frame %= 16;
 	sf::RectangleShape fillrct(sf::Vector2f(9.0F,14.0F));
 	sf::RectangleShape chrct(sf::Vector2f(9.0F,14.0F));
 	chrct.setTexture(tileset);
@@ -43,7 +43,7 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 		u8 chr =  RAM16::RAM[(0xb0000)+(i<<1)]; // Character number
 		u8 attr = RAM16::RAM[(0xb0001)+(i<<1)]; // Attribute part
 		sf::Color fg(255,255,255),bg(sf::Color::Black); // Render color
-		bool underline=false,high_intensity=false;
+		bool underline=false,high_intensity=false,blink=false;
 		if(attr == 0 || attr == 8 || attr == 0x80 || attr == 0x88) // Invisible
 		{
 			bg = fg = sf::Color::Black;
@@ -52,19 +52,23 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 		{
 			bg = sf::Color(255,255,255);
 			fg = sf::Color::Black;
+			if(attr == 0xF0) blink=true;
 		}
 		else if(attr == 0x78 || attr == 0xF8) // Dark green on green
 		{
 			bg = sf::Color(255,255,255);
 			fg = sf::Color(127,127,127);
+			if(attr == 0xF8) blink=true;
 		}
 		else
 		{
 			if(attr & 0x01) underline = true;
 			if(attr & 0x08) high_intensity = true;
+			if(attr & 0x80) blink = true;
 			if(high_intensity == true) fg=sf::Color(255,255,255);
 			else fg=sf::Color(127,127,127);
 		}
+		if(blink && (frame<8)){fg=bg;}
 		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
 		// Draws background
 		fillrct.setSize(sf::Vector2f(9.0F,14.0F));

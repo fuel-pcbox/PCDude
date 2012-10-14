@@ -29,6 +29,16 @@ kmain:
 	inc bx
 	mov byte [bx], 0x70
 	
+	mov dx,0x3B8
+	mov al,0x1B
+	out dx,al
+	mov ax,0xB000
+	mov ds,ax
+	mov bx,6
+	mov byte [bx], 'D'
+	inc bx
+	mov byte [bx], 0xF0
+	
 	nop
 jmp near kmain
 times 8176 - ($-$$) db 90
