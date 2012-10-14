@@ -33,7 +33,7 @@ build/pc.cpp
 build/../jzon/Jzon.cpp
 """) 
 
-CMDOPTS = ['-Wall','-Wextra']
+CMDOPTS = ['-Wall','-Wextra','-Wno-unused-parameter']
 CMDDEFS = []
 
 usemda = ARGUMENTS.get('mda', 1)
