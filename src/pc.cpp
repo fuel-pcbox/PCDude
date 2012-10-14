@@ -41,20 +41,16 @@ int main(int argc,char** argv, char** envv)
 	PCLOG1("Done!");
 
 	std::string gfxcard=settings.Get("graphics").AsObject().Get("card").ToString();
-#ifdef USE_MDA
 	if(gfxcard=="mda")
 	{
 		mda::Register();
 		ureg = &mda::Unregister;
 	}
-#endif
 
 	fclose(bios);
 
 	CPU::InitCPU(0);
-#ifdef USE_MDA
 	Video.Init();
-#endif
 
 	for(;;)
 	{
@@ -66,10 +62,11 @@ int main(int argc,char** argv, char** envv)
 			CPU::dumpregs();
 			if(CPU::tick() == 1)
 			{
-#ifdef USE_NCURSES
-				getch();
-#endif
 				ureg();
+#ifdef USE_NCURSES
+				endwin();
+#endif
+				printf("Exited with code 1.\n");
 				return 1;
 			}
 		}
@@ -78,9 +75,6 @@ int main(int argc,char** argv, char** envv)
 		{
 			if(Video.ev.type==sf::Event::Closed)
 			{
-#ifdef USE_NCURSES
-				getch();
-#endif
 				ureg();
 				return 2;
 			}

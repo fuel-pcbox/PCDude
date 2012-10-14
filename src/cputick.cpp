@@ -3,7 +3,7 @@
 #include "api.h"
 
 #ifdef USE_NCURSES
-#define printf(...)  mvwprintw(Video.w.get(),1,2,__VA_ARGS__)
+#define printf(...) wprintw(Video.w.get(),__VA_ARGS__)
 #endif
 
 int CPU::tick()
