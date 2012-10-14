@@ -77,14 +77,15 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 		chrct.setTextureRect(sf::IntRect(chx,chy,9,14));
 		chrct.setFillColor(fg);
 		chrct.setPosition(pos);
-		
+
 		if(underline)
 		{
 			fillrct.setSize(sf::Vector2f(7.0F,1.0F));
 			fillrct.setPosition(pos+sf::Vector2f(1.0F,13.0F));
+			fillrct.setFillColor(fg);
 			rw.draw(fillrct);
 		}
-		
+
 		rw.draw(chrct);
 	}
 }
