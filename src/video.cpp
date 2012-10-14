@@ -27,6 +27,7 @@ void Video_t::Init()
 	regs = sfg::Label::Create();
 	float tmx, tmy;
 	tmx = win.getSize().x - 130;
+	tmy = 32.0F;
 	guis->Put(regs,sf::Vector2f(tmx,tmy));
 #ifdef USE_NCURSES
 	w.reset(newwin(0,0,0,0),&delwin);
