@@ -564,6 +564,67 @@ int CPU::tick()
 					ip+=1;
 					break;
 				}
+				case 0xF6:
+				{
+					u8 modrm = RAM16::RAM[addr+2];
+					switch((modrm>>3)&7)
+					{
+					case 0:
+					{
+						switch(modrm&7)
+						{
+						case 4:
+						{
+							printf("TEST AH,%02x\n",RAM16::RAM[addr+3]);
+							u8 tmp = ah & RAM16::RAM[addr+3];
+							flags &= 0xF7FE;
+							if(tmp>=0x80) flags |= 0x0080;
+							else flags &= 0xFF7F;
+							if(tmp==0) flags |= 0x0040;
+							else flags &= 0xFFBF;
+							break;
+						}
+						case 6:
+						{
+							switch(modrm>>6)
+							{
+								case 0:
+								{
+									printf("TEST BYTE PTR DS:%04x,%02x\n",((RAM16::RAM[addr+4]<<8)|RAM16::RAM[addr+3]),RAM16::RAM[addr+5]);
+									u8 tmp = RAM16::RAM[(ds<<4)+((RAM16::RAM[addr+4]<<8)|RAM16::RAM[addr+3])] & RAM16::RAM[addr+5];
+									flags &= 0xF7FE;
+									if(tmp>=0x80) flags |= 0x0080;
+									else flags &= 0xFF7F;
+									if(tmp==0) flags |= 0x0040;
+									else flags &= 0xFFBF;
+									ip+=2;
+									break;
+								}
+							}
+						}
+						}
+						ip+=1;
+						break;
+					}
+					case 2:
+					{
+						switch(modrm&7)
+					{
+						case 0:
+						{
+							printf("NOT AL\n");
+							al = ~al;
+							if(al==0) flags |= 0x0040;
+							else flags &= 0xFFBF;
+							break;
+						}
+						}
+						break;
+					}
+					}
+					ip+=2;
+					break;
+				}
 				case 0xFF:
 				{
 					u8 modrm = RAM16::RAM[addr+2];
@@ -1784,6 +1845,12 @@ int CPU::tick()
 					ds = bx;
 					break;
 				}
+				case 0xDD:
+				{
+					printf("MOV DS,BP\n");
+					ds = bp;
+					break;
+				}
 				case 0xDE:
 				{
 					printf("MOV DS,SI\n");
@@ -2358,11 +2425,33 @@ int CPU::tick()
 				ip+=2;
 				break;
 			}
+			case 0xE0:
+			{
+				printf("LOOPNZ %02x\n",RAM16::RAM[addr+1]);
+				cx--;
+				if((cx!=0) && (!(flags & 0x0040)))
+				{
+					ip += (s8)RAM16::RAM[addr+1];
+				}
+				ip+=2;
+				break;
+			}
+			case 0xE1:
+			{
+				printf("LOOPZ %02x\n",RAM16::RAM[addr+1]);
+				cx--;
+				if((cx!=0) && (flags & 0x0040))
+				{
+					ip += (s8)RAM16::RAM[addr+1];
+				}
+				ip+=2;
+				break;
+			}
 			case 0xE2:
 			{
 				printf("LOOP %02x\n",RAM16::RAM[addr+1]);
 				cx--;
-				if(cx>0)
+				if(cx!=0)
 				{
 					ip += (s8)RAM16::RAM[addr+1];
 				}
