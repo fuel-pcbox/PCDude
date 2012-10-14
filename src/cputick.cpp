@@ -1796,7 +1796,7 @@ int CPU::tick()
 					break;
 				}
 				}
-				ip+=2; 
+				ip+=2;
 				break;
 			}
 			case 0x90:
@@ -1958,7 +1958,7 @@ int CPU::tick()
 			{
 				printf("MOV CX, %04x\n",(RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1]);
 				cx = (RAM16::RAM[addr+2]<<8) | RAM16::RAM[addr+1];
-				ip+=3; 
+				ip+=3;
 				break;
 			}
 			case 0xBA:

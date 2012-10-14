@@ -18,20 +18,16 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=5
+current_page=3
 FILE_NAME_0=0;Python;0;16;1;1;0;/dane/Projekty/PCDude/SConstruct;0;4
-FILE_NAME_1=2139;C;0;16;1;1;0;/dane/Projekty/PCDude/src/api.h;0;4
+FILE_NAME_1=2806;C;0;16;1;1;0;/dane/Projekty/PCDude/src/api.h;0;4
 FILE_NAME_2=140;C;0;16;1;1;0;/dane/Projekty/PCDude/src/includes.h;0;4
-FILE_NAME_3=2;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/mda.cpp;0;4
-FILE_NAME_4=1079;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/pc.cpp;0;4
-FILE_NAME_5=405;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/video.cpp;0;4
-FILE_NAME_6=830;C;0;16;1;1;0;/dane/Projekty/PCDude/src/video.h;0;4
-FILE_NAME_7=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/apidefs.cpp;0;4
+FILE_NAME_3=254;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/mda.cpp;0;4
+FILE_NAME_4=1434;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/pc.cpp;0;4
+FILE_NAME_5=874;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/video.cpp;0;4
+FILE_NAME_6=815;C;0;16;1;1;0;/dane/Projekty/PCDude/src/video.h;0;4
+FILE_NAME_7=11238;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/apidefs.cpp;0;4
 FILE_NAME_8=105;C;0;16;1;1;0;/dane/Projekty/PCDude/src/videocards.h;0;4
-FILE_NAME_9=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/cga.cpp;0;4
-FILE_NAME_10=42848;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/cputick.cpp;0;4
-FILE_NAME_11=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/ega.cpp;0;4
-FILE_NAME_12=0;C++;0;16;1;1;0;/dane/Projekty/PCDude/src/hercules.cpp;0;4
 
 [VTE]
 last_dir=/home/kubasz

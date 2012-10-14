@@ -10,3 +10,5 @@ build
 log.txt
 log.*
 *.log
+*.geany
+*~
