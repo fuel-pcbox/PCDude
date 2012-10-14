@@ -67,6 +67,7 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 		}
 		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
 		// Draws background
+		fillrct.setSize(sf::Vector2f(9.0F,14.0F));
 		fillrct.setPosition(pos);
 		fillrct.setFillColor(bg);
 		rw.draw(fillrct);
@@ -76,6 +77,14 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 		chrct.setTextureRect(sf::IntRect(chx,chy,9,14));
 		chrct.setFillColor(fg);
 		chrct.setPosition(pos);
+		
+		if(underline)
+		{
+			fillrct.setSize(sf::Vector2f(7.0F,1.0F));
+			fillrct.setPosition(pos+sf::Vector2f(1.0F,13.0F));
+			rw.draw(fillrct);
+		}
+		
 		rw.draw(chrct);
 	}
 }
