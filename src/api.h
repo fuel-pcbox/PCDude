@@ -188,6 +188,16 @@ void inc_addr();
 int tick();
 };
 
+template<unsigned long N>
+struct bin {
+    enum { value = (N%10)+2*bin<N/10>::value };
+} ;
+
+template<>
+struct bin<0> {
+    enum { value = 0 };
+} ;
+
 
 #include "videocards.h"
 

@@ -1,6 +1,7 @@
 kmain:
+	
 	mov dx,0x3B8
-	mov al,0x1B
+	mov al,0x2B
 	out dx,al
 	mov ax,0xB000
 	mov ds,ax
@@ -9,32 +10,17 @@ kmain:
 	inc bx
 	mov byte [bx], 0x09
 	
-	mov dx,0x3B8
-	mov al,0x1B
-	out dx,al
-	mov ax,0xB000
-	mov ds,ax
-	mov bx,2
+	inc bx
 	mov byte [bx], 'B'
 	inc bx
 	mov byte [bx], 0x0A
 	
-	mov dx,0x3B8
-	mov al,0x1B
-	out dx,al
-	mov ax,0xB000
-	mov ds,ax
-	mov bx,4
+	inc bx
 	mov byte [bx], 'C'
 	inc bx
 	mov byte [bx], 0x70
 	
-	mov dx,0x3B8
-	mov al,0x1B
-	out dx,al
-	mov ax,0xB000
-	mov ds,ax
-	mov bx,6
+	inc bx
 	mov byte [bx], 'D'
 	inc bx
 	mov byte [bx], 0xF0

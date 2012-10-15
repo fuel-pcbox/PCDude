@@ -224,9 +224,11 @@ void tick()
 
 namespace IO_XT
 {
+std::tr1::array<u8,0xFFFF> bits;
 #undef addr
 void wb(u16 addr, u8 value)
 {
+	bits[addr] = value;
 	if(addr == 0x0000)
 	{
 		if(DMA_XT::lohi_chan0 == false)
@@ -639,7 +641,7 @@ u8 rb(u16 addr)
 	{
 		return LPT0::data;
 	}
-	return 0;
+	return bits[addr];
 }
 
 }

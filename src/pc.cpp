@@ -46,6 +46,11 @@ int main(int argc,char** argv, char** envv)
 		mda::Register();
 		ureg = &mda::Unregister;
 	}
+	else if((gfxcard=="hercules") || (gfxcard=="herc"))
+	{
+		hercules::Register();
+		ureg = &hercules::Unregister;
+	}
 
 	fclose(bios);
 

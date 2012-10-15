@@ -5,8 +5,6 @@
 namespace mda
 {
 
-
-
 // Tiles -> 9x14
 
 sf::Texture* tileset;
@@ -22,6 +20,7 @@ void Register()
 	Video.gfxCardGetDisplaySize = []() -> std::tuple<int,int> {return std::make_tuple(720,350);};
 	tileset = new sf::Texture();
 	tileset->loadFromFile("gfx/mda.png");
+	IO_XT::wb(0x3BA,bin<11110110>::value);
 }
 
 void Unregister()
@@ -32,6 +31,9 @@ void Unregister()
 
 void render(sf::RenderWindow & rw, int xoff, int yoff)
 {
+	u8 rgstr = IO_XT::rb(0x3B8);
+	if(((rgstr&(1<<3))==0)){return;}
+	bool blk = ((rgstr&(1<<5))>0);
 	static int frame = -1;
 	frame++;
 	frame &= 15; // frame %= 16;
@@ -68,7 +70,7 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 			if(high_intensity == true) fg=sf::Color(255,255,255);
 			else fg=sf::Color(127,127,127);
 		}
-		if(blink && (frame<8)){fg=bg;}
+		if(blk && blink && (frame<8)){fg=bg;}
 		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
 		// Draws background
 		fillrct.setSize(sf::Vector2f(9.0F,14.0F));

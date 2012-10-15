@@ -39,7 +39,7 @@ CMDDEFS = []
 usemda = ARGUMENTS.get('mda', 1)
 usecga = ARGUMENTS.get('cga', 0)
 useega = ARGUMENTS.get('ega', 0)
-usehercules = ARGUMENTS.get('hercules', 0)
+usehercules = ARGUMENTS.get('hercules', 1)
 dbg = ARGUMENTS.get('debug', 1)
 usenc = ARGUMENTS.get('ncurses', (0 if isWinXX else 1) )
 
