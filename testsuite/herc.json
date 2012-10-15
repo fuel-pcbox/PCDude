@@ -1,0 +1,4 @@
+{
+bios: "mda.rom",
+graphics: { card: "mda" }
+}
