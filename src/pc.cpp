@@ -41,10 +41,24 @@ int main(int argc,char** argv, char** envv)
 	PCLOG1("Done!");
 
 	std::string gfxcard=settings.Get("graphics").AsObject().Get("card").ToString();
+#ifdef USE_MDA
 	if(gfxcard=="mda")
 	{
 		mda::Register();
 		ureg = &mda::Unregister;
+	}
+#ifdef USE_HERCULES
+	if(gfxcard=="hgc")
+	{
+		HGC::Register();
+		ureg = &HGC::Unregister;
+	}
+#endif
+#endif
+	if(gfxcard=="cga")
+	{
+		CGA::Register();
+		ureg = &CGA::Unregister;
 	}
 
 	fclose(bios);

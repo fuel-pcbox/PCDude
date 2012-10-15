@@ -30,6 +30,36 @@ u8 vert_disp;
 u8 maximum_scanline;
 };
 
+namespace mda
+{
+extern void tick(sf::RenderWindow& rw, int xoff, int yoff);
+};
+
+namespace HGC
+{
+int hercules;
+};
+
+namespace CGA
+{
+u8 textcols;
+u8 textmode;
+u8 color;
+u8 video_enable;
+u8 graphicsmode;
+u8 attr_blink_mode;
+
+u8 crtc_index;
+u8 horz_total;
+u8 horz_disp;
+u8 horz_sync_pos;
+u8 horz_sync_width;
+u8 vert_total;
+u8 vert_total_adjust;
+u8 vert_disp;
+u8 maximum_scanline;
+};
+
 namespace LPT0
 {
 u8 data;
@@ -473,7 +503,7 @@ void wb(u16 addr, u8 value)
 	if(addr == 0x03B8)
 	{
 		MDA::textcols = value & 1;
-		MDA::textmode = (value & 2) >> 1;
+		HGC::hercules = (value & 2) >> 1;
 		MDA::color = (value & 4) >> 2;
 		MDA::video_enable = (value & 8) >> 3;
 		MDA::graphicsmode = (value & 0x10) >> 4;
@@ -483,6 +513,30 @@ void wb(u16 addr, u8 value)
 	if(addr == 0x03BC)
 	{
 		LPT0::data = value;
+	}
+	if(addr == 0x03D4)
+	{
+		CGA::crtc_index = value;
+	}
+	if(addr == 0x03D5)
+	{
+		if(CGA::crtc_index == 0) CGA::horz_total = value;
+		if(CGA::crtc_index == 1) CGA::horz_disp = value;
+		if(CGA::crtc_index == 2) CGA::horz_sync_pos = value;
+		if(CGA::crtc_index == 3) CGA::horz_sync_width = value;
+		if(CGA::crtc_index == 4) CGA::vert_total = value;
+		if(CGA::crtc_index == 5) CGA::vert_total_adjust = value;
+		if(CGA::crtc_index == 6) CGA::vert_disp = value;
+		if(CGA::crtc_index == 9) CGA::maximum_scanline = value;
+	}
+	if(addr == 0x03D8)
+	{
+		CGA::textcols = value & 1;
+		CGA::color = (value & 4) >> 2;
+		CGA::video_enable = (value & 8) >> 3;
+		CGA::graphicsmode = (value & 0x10) >> 4;
+		CGA::attr_blink_mode = (value & 0x20) >> 5;
+		wprintw(Video.w.get(),"MDA mode control write %02x!\n",value);
 	}
 }
 

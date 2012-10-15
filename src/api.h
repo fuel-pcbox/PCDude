@@ -40,6 +40,31 @@ extern u8 vert_disp;
 extern  u8 maximum_scanline;
 };
 
+namespace HGC
+{
+extern int hercules;
+};
+
+namespace CGA
+{
+extern u8 textcols;
+extern u8 textmode;
+extern u8 color;
+extern u8 video_enable;
+extern u8 graphicsmode;
+extern u8 attr_blink_mode;
+
+extern u8 crtc_index;
+extern  u8 horz_total;
+extern  u8 horz_disp;
+extern u8 horz_sync_pos;
+extern u8 horz_sync_width;
+extern u8 vert_total;
+extern u8 vert_total_adjust;
+extern u8 vert_disp;
+extern  u8 maximum_scanline;
+};
+
 namespace LPT0
 {
 extern u8 data;
