@@ -150,7 +150,7 @@ void render(sf::RenderWindow& rw, int xoff, int yoff)
 					{
 					  if(col == 0) final_col = sf::Color(pal[7][0],pal[7][1],pal[7][2]);
 					  else if(col == 1) final_col = sf::Color(pal[13][0],pal[13][1],pal[13][2]);
-					  else if(col == 1) final_col = sf::Color(pal[15][0],pal[15][1],pal[15][2]);
+					  else if(col == 2) final_col = sf::Color(pal[15][0],pal[15][1],pal[15][2]);
 					}
 					sf::RectangleShape pixrct(sf::Vector2f(1,1));
 					pixrct.setFillColor(final_col);
