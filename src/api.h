@@ -63,6 +63,7 @@ extern u8 vert_total;
 extern u8 vert_total_adjust;
 extern u8 vert_disp;
 extern  u8 maximum_scanline;
+extern u8 col_sel;
 };
 
 namespace LPT0

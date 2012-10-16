@@ -58,6 +58,7 @@ u8 vert_total;
 u8 vert_total_adjust;
 u8 vert_disp;
 u8 maximum_scanline;
+u8 col_sel;
 };
 
 namespace LPT0
@@ -536,7 +537,11 @@ void wb(u16 addr, u8 value)
 		CGA::video_enable = (value & 8) >> 3;
 		CGA::graphicsmode = (value & 0x10) >> 4;
 		CGA::attr_blink_mode = (value & 0x20) >> 5;
-		wprintw(Video.w.get(),"MDA mode control write %02x!\n",value);
+		wprintw(Video.w.get(),"CGA mode control write %02x!\n",value);
+	}
+	if(addr == 0x03D9)
+	{
+		CGA::col_sel = value & 0x1F;
 	}
 }
 

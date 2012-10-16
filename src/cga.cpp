@@ -144,6 +144,18 @@ void render(sf::RenderWindow& rw, int xoff, int yoff)
 				{
 					u8 col = RAM16::RAM[0xb8000 + ((j+(i*xmax))>>2)];
 					col = (((col >> (1 << ((j+(i*xmax)) % 9))) & 3));
+					int pal_sel = (col_sel & 0x20) >> 5;
+					sf::Color final_col;
+					if(pal_sel)
+					{
+					  if(col == 0) final_col = sf::Color(pal[7][0],pal[7][1],pal[7][2]);
+					  else if(col == 1) final_col = sf::Color(pal[13][0],pal[13][1],pal[13][2]);
+					  else if(col == 1) final_col = sf::Color(pal[15][0],pal[15][1],pal[15][2]);
+					}
+					sf::RectangleShape pixrct(sf::Vector2f(1,1));
+					pixrct.setFillColor(final_col);
+					pixrct.setPosition(sf::Vector2f(j,i));
+					rw.draw(pixrct);
 				}
 			}
 		}
@@ -151,5 +163,6 @@ void render(sf::RenderWindow& rw, int xoff, int yoff)
 }
 
 }
+
 
 
