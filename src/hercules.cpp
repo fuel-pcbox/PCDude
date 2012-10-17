@@ -1,7 +1,7 @@
 #include "video.h"
 #include "api.h"
 
-namespace hercules
+namespace HGC
 {
 
 // Tiles -> 9x14

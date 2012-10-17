@@ -75,17 +75,10 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 			if(high_intensity == true) fg=sf::Color(255,255,255);
 			else fg=sf::Color(127,127,127);
 		}
-		<<<<<<< HEAD
 		if(blk && blink && (frame<8))
 		{
 			fg=bg;
 		}
-		=======
-		    if(blink && (frame<8))
-		{
-			fg=bg;
-		}
-		>>>>>>> 9dafe4d7a7ab3456622dcaf35b5b505af6d090a8
 		sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
 		// Draws background
 		fillrct.setSize(sf::Vector2f(9.0F,14.0F));

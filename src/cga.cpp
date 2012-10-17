@@ -6,6 +6,10 @@ namespace CGA
 
 u8 pal[16][3] = {{0,0,0},{127,127,127},{0,0,127},{0,0,255},{0,127,0},{0,255,0},{0,127,127},{0,255,255},{127,0,0},{255,0,0},{127,0,127},{255,0,255},{127,127,0},{255,255,0},{223,223,223},{255,255,255}};
 
+void render(sf::RenderWindow & rw, int xoff, int yoff);
+void Register();
+void Unregister();
+
 void Register()
 {
 	Video.gfxCardRender = &render;

@@ -37,7 +37,7 @@ CMDOPTS = ['-Wall','-Wextra','-Wno-unused-parameter']
 CMDDEFS = []
 
 usemda = ARGUMENTS.get('mda', 1)
-usecga = ARGUMENTS.get('cga', 0)
+usecga = ARGUMENTS.get('cga', 1)
 useega = ARGUMENTS.get('ega', 0)
 usehercules = ARGUMENTS.get('hercules', 1)
 dbg = ARGUMENTS.get('debug', 1)
