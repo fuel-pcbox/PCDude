@@ -46,10 +46,15 @@ int main(int argc,char** argv, char** envv)
 		mda::Register();
 		ureg = &mda::Unregister;
 	}
-	else if((gfxcard=="hercules") || (gfxcard=="herc"))
+	else if((gfxcard=="hgc")||(gfxcard=="hercules") || (gfxcard=="herc"))
 	{
-		hercules::Register();
-		ureg = &hercules::Unregister;
+		HGC::Register();
+		ureg = &HGC::Unregister;
+	}
+	else if(gfxcard=="cga")
+	{
+		CGA::Register();
+		ureg = &CGA::Unregister;
 	}
 
 	fclose(bios);

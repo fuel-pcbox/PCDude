@@ -2,9 +2,10 @@
 #ifndef VIDEOCARDS_H_INC
 #define VIDEOCARDS_H_INC
 
+#include "includes.h"
+
 namespace mda
 {
-#ifdef USE_MDA
 void Register();
 void Unregister();
 #else
@@ -13,16 +14,19 @@ void Unregister(){}
 #endif
 }
 
-namespace hercules
+namespace HGC
 {
-#ifdef USE_HERCULES
 void Register();
 void Unregister();
-#else
-void Register(){}
-void Unregister(){}
-#endif
-}
+extern void render(sf::RenderWindow& rw, int xoff, int yoff);
+};
+
+namespace CGA
+{
+void Register();
+void Unregister();
+extern void render(sf::RenderWindow& rw, int xoff, int yoff);
+};
 
 #endif
 
