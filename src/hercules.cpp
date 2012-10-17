@@ -36,14 +36,18 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 {
 	u8 rg1 = IO_XT::rb(0x3B8);
 	u8 rg2 = IO_XT::rb(0x3BF);
-	if(((rg1&(1<<3))==0)){return;} // Disabled gfx
+	if(((rg1&(1<<3))==0))
+	{
+		return;   // Disabled gfx
+	}
 	bool ful1 = ((rg2&2)>0);
 	bool ful2 = ((rg1&(1<<7))>0);
 	bool gfl = ((rg2&1)>0);
 	bool blk = ((rg1&(1<<5))>0);
 	int RamOff = (ful1)? ( (ful2) ? ( 0xB8000 ) : ( 0xB000 ) ) : ( 0xB8000 );
 	bool mode = ful2&&gfl;
-	if(!mode) {
+	if(!mode)
+	{
 		static int frame = -1;
 		frame++;
 		frame &= 15; // frame %= 16;
@@ -80,7 +84,10 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 				if(high_intensity == true) fg=sf::Color(255,255,255);
 				else fg=sf::Color(127,127,127);
 			}
-			if(blk && blink && (frame<8)){fg=bg;}
+			if(blk && blink && (frame<8))
+			{
+				fg=bg;
+			}
 			sf::Vector2f pos((i%xmax) * 9 + xoff , (i/xmax) * 14 + yoff);
 			// Draws background
 			fillrct.setSize(sf::Vector2f(9.0F,14.0F));
@@ -107,10 +114,10 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 	}
 	else // Graphics mode 720x384
 	{
-		for(int i=0;i<34560;i++)
+		for(int i=0; i<34560; i++)
 		{
 			u8 px = RAM16::RAM[0xB0000+i];
-			for(int j=0;j<8;j++)
+			for(int j=0; j<8; j++)
 			{
 				u8 p = (px>>j)&1;
 				int n = ((i*8)+j)*4;

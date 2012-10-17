@@ -9,8 +9,8 @@ namespace mda
 void Register();
 void Unregister();
 #else
-void Register(){}
-void Unregister(){}
+void Register() {}
+void Unregister() {}
 #endif
 }
 
