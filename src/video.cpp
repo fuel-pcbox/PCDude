@@ -87,22 +87,22 @@ Video_t Video;
 #ifndef USE_MDA
 namespace mda
 {
-void Register(){}
-void Unregister(){}
+void Register() {}
+void Unregister() {}
 }
 #endif
 #ifndef USE_HERCULES
 namespace HGC
 {
-void Register(){}
-void Unregister(){}
+void Register() {}
+void Unregister() {}
 }
 #endif
 #ifndef USE_CGA
 namespace CGA
 {
-void Register(){}
-void Unregister(){}
+void Register() {}
+void Unregister() {}
 }
 #endif
 
