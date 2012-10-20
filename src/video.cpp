@@ -23,6 +23,14 @@ void Video_t::Init()
 	fntMono.loadFromFile("gfx/libermono.ttf");
 	fntMonoBold.loadFromFile("gfx/libermono-bold.ttf");
 	fntSans.loadFromFile("gfx/libersans.ttf");
+
+	std::tuple<int,int> sz = gfxCardGetDisplaySize();
+	int Tx, Ty;
+	std::tie(Tx,Ty) = sz;
+	sf::Uint32 nx = Tx+WW;
+	sf::Uint32 ny = Ty+HH;
+	win.setSize(sf::Vector2u(nx,ny));
+
 #ifdef USE_NCURSES
 	w.reset(newwin(0,0,0,0),&delwin);
 	wrefresh(w.get());
@@ -31,17 +39,6 @@ void Video_t::Init()
 
 void Video_t::RefreshScreen()
 {
-	std::tuple<int,int> sz = gfxCardGetDisplaySize();
-	int Tx, Ty;
-	std::tie(Tx,Ty) = sz;
-	sf::Uint32 nx = Tx+WW;
-	sf::Uint32 ny = Ty+HH;
-	if((nx!=win.getSize().x)||(ny!=win.getSize().y))
-	{
-		printf("SIZE CHANGE!!!\n");
-		win.setSize(sf::Vector2u(nx,ny));
-	}
-	static sf::Clock c;
 	static sf::RectangleShape rs(sf::Vector2f(722.0f,352.0f));
 	rs.setPosition(sf::Vector2f(23,71));
 	rs.setOutlineColor(sf::Color::White);
@@ -49,7 +46,6 @@ void Video_t::RefreshScreen()
 	rs.setFillColor(sf::Color::Transparent);
 	win.clear(sf::Color(237,230,197));
 	gfxCardRender(win,24,72);
-	RefreshRegisters();
 	win.display();
 }
 
