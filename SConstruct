@@ -29,6 +29,7 @@ build/apidefs.cpp
 build/cputick.cpp
 build/video.cpp
 build/pc.cpp
+build/mda.xbm.c
 build/../jzon/Jzon.cpp
 """) 
 

@@ -1,0 +1,9 @@
+#ifndef MDA_XBM_INC
+#define MDA_XBM_INC
+
+#define mdabmp_width 512
+#define mdabmp_height 128
+
+extern unsigned char mdabmp_bits[8216];
+
+#endif

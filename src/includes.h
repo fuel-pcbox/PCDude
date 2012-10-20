@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <fstream>
 #include <stdexcept>
+#include <bitset>
 #include <tr1/memory>
 #include <tr1/functional>
 #include <tr1/tuple>
