@@ -60,7 +60,8 @@ if usenc==1:
 	CMDDEFS += ['USE_NCURSES']
 	env.Append(LIBS=['ncurses'])
 if dbg==1:
-	CMDOPTS += ['-g']
+	CMDOPTS += ['-g','-pg']
+	env.Append(LINKFLAGS=['-pg'])
 else:
 	CMDOPTS += ['-O2']
 

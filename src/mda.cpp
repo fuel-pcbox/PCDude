@@ -42,13 +42,14 @@ void render(sf::RenderWindow & rw, int xoff, int yoff)
 	static int frame = -1;
 	frame++;
 	frame &= 15; // frame %= 16;
+	int RamOff = 0xB0000;
 	sf::RectangleShape fillrct(sf::Vector2f(9.0F,14.0F));
 	sf::RectangleShape chrct(sf::Vector2f(9.0F,14.0F));
 	chrct.setTexture(tileset);
 	for(int i = 0; i<(xmax*ymax); i++) // Foreach(character in memory)
 	{
-		u8 chr =  RAM16::RAM[(0xb0000)+(i<<1)]; // Character number
-		u8 attr = RAM16::RAM[(0xb0001)+(i<<1)]; // Attribute part
+		u8 chr =  RAM16::RAM[RamOff+(i<<1)]; // Character number
+		u8 attr = RAM16::RAM[RamOff+1+(i<<1)]; // Attribute part
 		sf::Color fg(255,255,255),bg(sf::Color::Black); // Render color
 		bool underline=false,high_intensity=false,blink=false;
 		if(attr == 0 || attr == 8 || attr == 0x80 || attr == 0x88) // Invisible

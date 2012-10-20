@@ -12,3 +12,5 @@ log.*
 *.log
 *.geany
 *~
+gmon.out
+profile.txt
