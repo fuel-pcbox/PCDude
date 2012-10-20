@@ -655,6 +655,25 @@ int CPU::tick()
 				ip+=1;
 				break;
 			}
+			case 0x2F:
+			{
+				printf("DAS\n");
+				if( ((al&0xF)>9) || isAFset() )
+				{
+					al -= 6;
+					setAF();
+				}
+				else rstAF();
+				if( (al>9) || isCFset() )
+				{
+					al -= 0x60;
+					setCF();
+				}
+				else
+				{
+					rstCF();
+				}
+			}
 			case 0x30:
 			{
 				u8 modrm = RAM16::RAM[addr+1];

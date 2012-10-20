@@ -18,7 +18,7 @@ Video_t::~Video_t()
 
 void Video_t::Init()
 {
-	win.create( sf::VideoMode(900,600), "PCDude - 8086 emulator", sf::Style::Default^sf::Style::Resize );
+	win.create( sf::VideoMode(720+WW,350+HH), "PCDude - 8086 emulator", sf::Style::Default^sf::Style::Resize );
 
 	fntMono.loadFromFile("gfx/libermono.ttf");
 	fntMonoBold.loadFromFile("gfx/libermono-bold.ttf");
@@ -37,6 +37,13 @@ void Video_t::Init()
 
 void Video_t::RefreshScreen()
 {
+	auto sz = gfxCardGetDisplaySize();
+	sf::Uint32 nx = sz[0]+WW;
+	sf::Uint32 ny = sz[0]+HH;
+	if((nx!=w.getSize().X)||(ny!=w.getSize().Y))
+	{
+		w.setSize(nx,ny);
+	}
 	static sf::Clock c;
 	static sf::RectangleShape rs(sf::Vector2f(722.0f,352.0f));
 	rs.setPosition(sf::Vector2f(23,71));

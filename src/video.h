@@ -21,6 +21,10 @@ public:
 class Video_t
 {
 public:
+	
+	const int WW = 180;
+	const int HH = 250;
+	
 	Video_t();
 	virtual ~Video_t();
 
