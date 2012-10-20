@@ -11,7 +11,7 @@
 10A	OR		Gb	Eb
 10B	OR		Gv	Ev
 10C	OR		AL	Ib
-00D	OR		eAX	Iv
+10D	OR		eAX	Iv
 10E	PUSH	CS
 10F	--
 010	ADC		Eb	Gb
@@ -53,7 +53,7 @@
 134	XOR		AL	Ib
 135	XOR		eAX	Iv
 036	SS:
-037	AAA
+137	AAA
 038	CMP		Eb	Gb
 039	CMP		Ev	Gv
 13A	CMP		Gb	Eb
