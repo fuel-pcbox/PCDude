@@ -204,6 +204,24 @@ extern u16 ip;
 
 extern u16 flags;
 
+
+#define ADDFLAGFUNC(FLG, BIT) \
+	inline bool is ## FLG ## set () { return ((flags&(1<<BIT))>0); } \
+	inline void set ## FLG () { flags |= (1<<BIT); } \
+	inline void rst ## FLG () { flags &= ~(1<<BIT); }
+
+ADDFLAGFUNC( CF , 0  )
+ADDFLAGFUNC( PF , 2  )
+ADDFLAGFUNC( AF , 4  )
+ADDFLAGFUNC( ZF , 6  )
+ADDFLAGFUNC( SF , 7  )
+ADDFLAGFUNC( TF , 8  )
+ADDFLAGFUNC( IF , 9  )
+ADDFLAGFUNC( DF , 10 )
+ADDFLAGFUNC( OF , 11 )
+
+#undef ADDFLAGFUNC
+
 int InitCPU(int t);
 
 void dumpregs();

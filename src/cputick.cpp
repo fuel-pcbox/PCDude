@@ -787,6 +787,24 @@ int CPU::tick()
 				ip+=2;
 				break;
 			}
+			case 0x37:
+			{
+				printf("AAA\n");
+				if( ((al & 0xF)>9) || isAFset() )
+				{
+					al = (al+6) & 0xF;
+					ah++;
+					setAF();
+					setCF();
+				}
+				else
+				{
+					rstCF();
+					rstAF();
+				}
+				ip++;
+				break;
+			}
 			case 0x35:
 			{
 				printf("XOR AX,%04x\n",(RAM16::RAM[addr+2]<<8)|RAM16::RAM[addr+1]);
