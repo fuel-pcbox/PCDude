@@ -37,12 +37,14 @@ void Video_t::Init()
 
 void Video_t::RefreshScreen()
 {
-	auto sz = gfxCardGetDisplaySize();
-	sf::Uint32 nx = sz[0]+WW;
-	sf::Uint32 ny = sz[0]+HH;
-	if((nx!=w.getSize().X)||(ny!=w.getSize().Y))
+	std::tuple<int,int> sz = gfxCardGetDisplaySize();
+	int Tx, Ty;
+	std::tie(Tx,Ty) = sz;
+	sf::Uint32 nx = Tx+WW;
+	sf::Uint32 ny = Ty+HH;
+	if((nx!=win.getSize().x)||(ny!=win.getSize().y))
 	{
-		w.setSize(nx,ny);
+		win.setSize(sf::Vector2u(nx,ny));
 	}
 	static sf::Clock c;
 	static sf::RectangleShape rs(sf::Vector2f(722.0f,352.0f));

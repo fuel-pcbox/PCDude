@@ -2824,7 +2824,10 @@ int CPU::tick()
 		}
 		break;
 	}
+	default:
+	{
+		return 1;
+	}
 	}
 	return 0;
 }
-
