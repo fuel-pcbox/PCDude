@@ -23,12 +23,6 @@ void Video_t::Init()
 	fntMono.loadFromFile("gfx/libermono.ttf");
 	fntMonoBold.loadFromFile("gfx/libermono-bold.ttf");
 	fntSans.loadFromFile("gfx/libersans.ttf");
-	guis = sfg::Fixed::Create();
-	regs = sfg::Label::Create();
-	float tmx, tmy;
-	tmx = win.getSize().x - 130;
-	tmy = 32.0F;
-	guis->Put(regs,sf::Vector2f(tmx,tmy));
 #ifdef USE_NCURSES
 	w.reset(newwin(0,0,0,0),&delwin);
 	wrefresh(w.get());
@@ -44,6 +38,7 @@ void Video_t::RefreshScreen()
 	sf::Uint32 ny = Ty+HH;
 	if((nx!=win.getSize().x)||(ny!=win.getSize().y))
 	{
+		printf("SIZE CHANGE!!!\n");
 		win.setSize(sf::Vector2u(nx,ny));
 	}
 	static sf::Clock c;
@@ -52,11 +47,9 @@ void Video_t::RefreshScreen()
 	rs.setOutlineColor(sf::Color::White);
 	rs.setOutlineThickness(1.0f);
 	rs.setFillColor(sf::Color::Transparent);
-	gui.Update(c.restart().asSeconds());
 	win.clear(sf::Color(237,230,197));
 	gfxCardRender(win,24,72);
 	RefreshRegisters();
-	gs.Display(win);
 	win.display();
 }
 
@@ -82,7 +75,6 @@ void Video_t::RefreshRegisters()
 	addout(flags);
 #undef addout
 	ss << std::flush;
-	regs->SetText(ss.str());
 }
 
 bool Video_t::PollEvent()

@@ -39,10 +39,6 @@ public:
 	void RefreshRegisters();
 
 	sf::Font fntMono, fntMonoBold, fntSans;
-	sfg::SFGUI gs;
-	sfg::Desktop gui;
-	sfg::Fixed::Ptr guis;
-	sfg::Label::Ptr regs;
 
 #ifdef USE_NCURSES
 	shared_ptr<WINDOW> w;

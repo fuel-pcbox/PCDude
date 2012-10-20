@@ -23,7 +23,6 @@ if not isWinXX:
 	env.ParseConfig('pkg-config --libs sfml-all')
 else:
 	env.Append(LIBS=['sfml-graphics','sfml-audio','sfml-network','sfml-window','sfml-system'])
-env.Append(LIBS=['sfgui'])
 
 SRCS = Split("""
 build/apidefs.cpp

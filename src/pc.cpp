@@ -88,10 +88,6 @@ int main(int argc,char** argv, char** envv)
 				ureg();
 				return 2;
 			}
-			else
-			{
-				Video.gui.HandleEvent(Video.ev);
-			}
 		}
 		Video.RefreshScreen();
 #endif

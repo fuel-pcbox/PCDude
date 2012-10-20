@@ -22,7 +22,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
-#include <SFGUI/SFGUI.hpp>
 
 #ifdef USE_NCURSES
 #include <ncurses.h>
